@@ -13,7 +13,7 @@ track1.2014 <- aco.2014[aco.2014$Track1 == 1,]
 rates.2013 <- track1.2013[, c(1, 2, 52,  62, 63)]
 rates.2014 <- track1.2014[, c(1, 2, 8, 14, 90, 100, 101)]
 
-# Get snf utilization trend
+# Get SNF utilization trend
 trend <- merge(rates.2013, rates.2014, by.x ='ACO.Identifier', by.y = 'ACO_Num')
 trend[,6] <- NULL
 colnames(trend) <- c("ID", "NAME", "IP.2013", "SNF.2013", "ED.2013", "2014 Benes", "Qual 2014",  "IP.2014", "SNF.2014", "ED.2014")
