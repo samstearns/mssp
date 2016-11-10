@@ -44,21 +44,23 @@ abline(risk.2014)
 summary(risk.2014)
 
 # Filter for track 1 ACOs
-track1.2013 <- aco.2013[aco.2013$Track.2.ACO == 0,]
+#track1.2013 <- aco.2013[aco.2013$Track.2.ACO == 0,]
 track1.2014 <- aco.2014[aco.2014$Track1 == 1,]
+track1.2015 <- aco.2015[aco.2015$Track1 == 1,]
 
 # ACO ID, Name, Admits, SNF, ED Visits. Add # Benes, Quality Score, and HCC from 2014
-rates.2013 <- track1.2013[, c(1, 2, 52,  62, 63)]
+#rates.2013 <- track1.2013[, c(1, 2, 52,  62, 63)]
 rates.2014 <- track1.2014[, c(1, 2, 8, 14, 90, 100, 101)]
+rates.2015 <- track1.2015[, c(1, 2, 8, 14, 90, 100, 101)]
 
 # Get SNF utilization trend
-trend <- merge(rates.2013, rates.2014, by.x ='ACO.Identifier', by.y = 'ACO_Num')
-trend[,6] <- NULL
+trend <- merge(rates.2014, rates.2015, by.x ='ACO_Num', by.y = 'ACO_Num')
+
 # Re-order columns
-colnames(trend) <- c("ID", "NAME", "IP.2013", "SNF.2013", "ED.2013", "2014 Benes", "Qual 2014",  "IP.2014", "SNF.2014", "ED.2014")
-trend["SNF.trend"] <- trend["SNF.2014"] / trend["SNF.2013"] - 1
-trend["IP.trend"] <- trend["IP.2014"] / trend["IP.2013"] - 1 
-trend["ED.trend"] <- trend["ED.2014"] / trend["ED.2013"] -1 
+#colnames(trend) <- c("ID", "NAME", "IP.2014", "SNF.2014", "ED.2014", "2015 Benes", "Qual 2015",  "IP.2015", "SNF.2015", "ED.2015")
+trend["SNF.trend"] <- trend["P_SNF_ADM.y"] / trend["P_SNF_ADM.x"] - 1
+trend["IP.trend"] <- trend["ADM.y"] / trend["ADM.x"] - 1 
+trend["ED.trend"] <- trend["P_EDV_Vis.y"] / trend["P_EDV_Vis.x"] -1 
 
 attach(trend)
 hist(SNF.trend)
@@ -66,6 +68,6 @@ summary(SNF.trend)
 summary(IP.trend)
 summary(ED.trend)
 
-plot(SNF.2013, SNF.trend)
+plot(P_SNF_ADM.y, SNF.trend)
 
 plot(trend["SNF.2013"], trend["SNF.2014"])
