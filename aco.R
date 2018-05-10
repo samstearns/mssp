@@ -18,6 +18,7 @@ LoadPUF <- function(address) {
 aco.2013 <- LoadPUF("https://data.cms.gov/api/views/475s-fzi7/rows.csv?accessType=DOWNLOAD&bom=true")
 aco.2014 <- LoadPUF("https://data.cms.gov/api/views/888h-akbg/rows.csv?accessType=DOWNLOAD&bom=true")
 aco.2015 <- LoadPUF("https://data.cms.gov/api/views/7rrf-3gxr/rows.csv?accessType=DOWNLOAD&bom=true")
+aco.2016 <- LoadPUF("https://data.cms.gov/api/views/i3xi-3vkx/rows.csv?accessType=DOWNLOAD&bom=true")
 
 # Add additional variables --------------------------------------------------------------------------------------
 
