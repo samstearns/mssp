@@ -1,11 +1,14 @@
 Package: mssp
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Utilities for analyzing ACO performance using the CMS SSP PUF file
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author: Sam Stearns
+Maintainer: Sam Stearns <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT
 Encoding: UTF-8
 LazyData: true
+Imports:
+    RCurl
+RoxygenNote: 6.0.1
