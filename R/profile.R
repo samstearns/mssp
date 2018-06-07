@@ -66,10 +66,10 @@ profile_aco <- function(df, aco_num, profile_variables, year = NULL) {
   colnames(median_results) <- profile_variables
   median_results[1,1] <- "N/A"
   median_results[1,2] <- "Median"
-  median_results[1,1] <- "N/A"
-  median_results[1,2] <- "% Diff vs. Median"
+  median_results[2,1] <- "N/A"
+  median_results[2,2] <- "% Diff vs. Median"
   i <- 3
-  for (var in uv[3:length(profile_variables)]) {
+  for (var in profile_variables[3:length(profile_variables)]) {
     median_results[1, i] <- median(df[,var])
     median_results[2, i] <- aco_results[1, i] * 1.0 / median_results[1, i] - 1.0
     i <- i + 1
