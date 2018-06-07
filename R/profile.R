@@ -39,9 +39,8 @@ profile_utilization <- function(df, aco_num, year = NULL) {
   # get utilization for the selected ACO
   # TODO: filter for year
   aco_results <- df[which(df$ACO_Num==aco_num), utilization_variables]
-  print(class(aco_results))
 
-    # Calculate the median values
+  # Calculate median values
   median_results <- data.frame(matrix(ncol = 17, nrow = 2))
   colnames(median_results) <- utilization_variables
   median_results[1,1] <- "N/A"
