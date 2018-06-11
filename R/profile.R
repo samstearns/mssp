@@ -1,3 +1,9 @@
+utilization_variables <- c("ACO_Num", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "readm_Rate_1000", "prov_Rate_1000",
+                           "P_SNF_ADM", "P_EDV_Vis", "P_EDV_Vis_HOSP", "P_CT_VIS", "P_MRI_VIS", "P_EM_Total", "P_EM_PCP_Vis", "P_EM_SP_Vis")
+
+expenditures_variables <- c("ACO_Num", "ACO_Name", "CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab",  "CapAnn_INP_Psych", "readm_Rate_1000", "prov_Rate_1000",
+                            "CapAnn_HSP", "CapAnn_SNF", "CapAnn_INP_Other", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME")
+
 #' Looks up the ACO Num with an ACO name
 #' @param df SSP data
 #' @param str Search string with the name of the ACO
@@ -33,9 +39,6 @@ lookup_aco_by_state <- function(df, str) {
 #' profile_utilization(df, "A95164", 2016)
 #' @export
 profile_utilization <- function(df, aco_num, year = NULL) {
-  utilization_variables <- c("ACO_Num", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "readm_Rate_1000", "prov_Rate_1000",
-                             "P_SNF_ADM", "P_EDV_Vis", "P_EDV_Vis_HOSP", "P_CT_VIS", "P_MRI_VIS", "P_EM_Total", "P_EM_PCP_Vis", "P_EM_SP_Vis")
-
   profile_aco(df, aco_num, utilization_variables)
 }
 
@@ -48,9 +51,6 @@ profile_utilization <- function(df, aco_num, year = NULL) {
 #' profile_expenditure(df, "A95164", 2016)
 #' @export
 profile_expenditures <- function(df, aco_num, year = NULL) {
-  expenditures_variables <- c("ACO_Num", "ACO_Name", "CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab",  "CapAnn_INP_Psych", "readm_Rate_1000", "prov_Rate_1000",
-                             "CapAnn_HSP", "CapAnn_SNF", "CapAnn_INP_Other", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME")
-
   profile_aco(df, aco_num, expenditures_variables)
 }
 
