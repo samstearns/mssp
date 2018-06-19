@@ -2,7 +2,7 @@
 % Please edit documentation in R/profile.R
 \name{profile_expenditures}
 \alias{profile_expenditures}
-\title{Profiles utilization metrics vs. national sample}
+\title{Profiles expenditures vs. national sample}
 \usage{
 profile_expenditures(df, aco_num, year = NULL)
 }
@@ -17,8 +17,8 @@ profile_expenditures(df, aco_num, year = NULL)
 Data frame with mssp data.
 }
 \description{
-Profiles utilization metrics vs. national sample
+Profiles expenditures vs. national sample
 }
 \examples{
-profile_utilization(df, 2016)
+profile_expenditure(df, "A95164", 2016)
 }

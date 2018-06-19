@@ -20,5 +20,5 @@ Data frame with mssp data.
 Profiles utilization metrics vs. national sample
 }
 \examples{
-profile_utilization(df, 2016)
+profile_utilization(df, "A95164", 2016)
 }
