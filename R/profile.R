@@ -1,3 +1,6 @@
+savings_variables <- c("ACO_Num", "ACO_Name", "N_AB", "Sav_rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "Met_QPS")
+
+
 utilization_variables <- c("ACO_Num", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "readm_Rate_1000", "prov_Rate_1000",
                            "P_SNF_ADM", "P_EDV_Vis", "P_EDV_Vis_HOSP", "P_CT_VIS", "P_MRI_VIS", "P_EM_Total", "P_EM_PCP_Vis", "P_EM_SP_Vis")
 
@@ -60,6 +63,18 @@ cost_metrics <- function(df, year = NULL) {
   aco_results <- df[, expenditures_variables]
 }
 
+#' Helper function to access savings metrics
+#' @param df SSP data
+#' @param year MSSP performance year.
+#' @return Data frame with mssp savings metrics.
+#' @examples
+#' savings_metrics(df, 2016)
+#' @export
+savings_metrics <- function(df, year = NULL) {
+  aco_results <- df[, savings_variables]
+}
+
+
 #' Profiles utilization metrics vs. national sample
 #' @param df SSP data
 #' @param aco_num ACO Number.
@@ -94,6 +109,18 @@ profile_expenditures <- function(df, aco_num, year = NULL) {
 #' @export
 profile_quality <- function(df, aco_num, year = NULL) {
   profile_aco(df, aco_num, quality_variables)
+}
+
+#' Profiles contract measures vs. national sample
+#' @param df SSP data
+#' @param aco_num ACO Number.
+#' @param year MSSP performance year.
+#' @return Data frame with mssp data.
+#' @examples
+#' profile_savings(df, "A95164", 2016)
+#' @export
+profile_savings <- function(df, aco_num, year = NULL) {
+  profile_aco(df, aco_num, savings_variables)
 }
 
 profile_aco <- function(df, aco_num, profile_variables, year = NULL) {
