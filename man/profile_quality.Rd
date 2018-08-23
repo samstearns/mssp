@@ -2,7 +2,7 @@
 % Please edit documentation in R/profile.R
 \name{profile_quality}
 \alias{profile_quality}
-\title{Profiles Quality Measures vs. national sample}
+\title{Profiles quality measures vs. national sample}
 \usage{
 profile_quality(df, aco_num, year = NULL)
 }
@@ -17,7 +17,7 @@ profile_quality(df, aco_num, year = NULL)
 Data frame with mssp data.
 }
 \description{
-Profiles Quality Measures vs. national sample
+Profiles quality measures vs. national sample
 }
 \examples{
 profile_quality(df, "A95164", 2016)

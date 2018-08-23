@@ -38,6 +38,28 @@ lookup_aco_by_state <- function(df, str) {
   df[matches, 1:2]
 }
 
+#' Helper function to access utilization metrics
+#' @param df SSP data
+#' @param year MSSP performance year.
+#' @return Data frame with mssp utilization metrics.
+#' @examples
+#' utilization_metrics(df, 2016)
+#' @export
+utilization_metrics <- function(df, year = NULL) {
+  aco_results <- df[, utilization_variables]
+}
+
+#' Helper function to access cost metrics
+#' @param df SSP data
+#' @param year MSSP performance year.
+#' @return Data frame with mssp cost metrics.
+#' @examples
+#' cost_metrics(df, 2016)
+#' @export
+cost_metrics <- function(df, year = NULL) {
+  aco_results <- df[, expenditures_variables]
+}
+
 #' Profiles utilization metrics vs. national sample
 #' @param df SSP data
 #' @param aco_num ACO Number.
@@ -62,7 +84,7 @@ profile_expenditures <- function(df, aco_num, year = NULL) {
   profile_aco(df, aco_num, expenditures_variables)
 }
 
-#' Profiles Quality Measures vs. national sample
+#' Profiles quality measures vs. national sample
 #' @param df SSP data
 #' @param aco_num ACO Number.
 #' @param year MSSP performance year.
