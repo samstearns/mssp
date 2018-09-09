@@ -83,7 +83,7 @@ standard_fields_2013 <- c(
 #' @examples
 #' load_puf_file(2016)
 #' @export
-load_puf_file <- function(year, enhance_data=TRUE, standardize_data=FALSE) {
+load_puf_file <- function(year="1000", enhance_data=TRUE, standardize_data=FALSE) {
 
   if (!requireNamespace("RCurl", quietly = TRUE)) {
     stop("Package \"pkg\" needed for this function to work. Please install it.",
@@ -91,28 +91,29 @@ load_puf_file <- function(year, enhance_data=TRUE, standardize_data=FALSE) {
   }
 
   if (year == 2013) {
-    # Note 2013 has different data format
-    address <- "https://data.cms.gov/api/views/faep-t7cf/rows.csv?accessType=DOWNLOAD"
+    address <- "faep-t7cf"
   } else if (year == 2014) {
-    address <- "https://data.cms.gov/api/views/888h-akbg/rows.csv?accessType=DOWNLOAD"
+    address <- "888h-akbg"
   } else if (year == 2015) {
-    address <- "https://data.cms.gov/api/views/7rrf-3gxr/rows.csv?accessType=DOWNLOAD"
+    address <- "7rrf-3gxr"
   } else if (year == 2016) {
-    address <- "https://data.cms.gov/api/views/3jk5-q6dr/rows.csv?accessType=DOWNLOAD"
+    address <- "3jk5-q6dr"
   } else if (year == 2017) {
-    address <- "https://data.cms.gov/api/views/gk7c-vejx/rows.csv?accessType=DOWNLOAD"
+    address <- "gk7c-vejx"
   } else {
-    address <- "https://data.cms.gov/api/views/475s-fzi7/rows.csv?accessType=DOWNLOAD"
+    print("Invalid performance year. Please select a value between 2013 and 2017.")
+    return()
   }
 
-  df <- LoadPUF(address);
+  url = paste("https://data.cms.gov/api/views/", address, "/rows.csv?accessType=DOWNLOAD", sep = "")
 
-  if (year == 2013) {
-    # Note: 2013 data has a different format than 2014 and 2015
-  }
+  df <- LoadPUF(url);
 
-  if (standardize_data == TRUE)
-  {
+  if (standardize_data == TRUE) {
+    # Adjust for differences in dataset. 2013 has 98 rows, 2014 and 2015 have 121, and 2016 and 2017 have 164
+    if (year == 2013) {
+      # Note: 2013 data has a different format than 2014 and 2015
+    }
   }
 
   if (enhance_data == TRUE) {
