@@ -4,7 +4,7 @@
 \alias{load_puf_file}
 \title{Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)}
 \usage{
-load_puf_file(year, enhance_data = TRUE)
+load_puf_file(year, enhance_data = TRUE, standardize_data = FALSE)
 }
 \arguments{
 \item{year}{MSSP performance year.}
