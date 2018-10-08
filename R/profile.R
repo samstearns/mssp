@@ -1,4 +1,4 @@
-savings_variables <- c("ACO_Num", "ACO_Name", "N_AB", "Sav_rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "Met_QPS")
+savings_variables <- c("ACO_Num", "ACO_Name", "N_AB", "Per_Capita_Exp_TOTAL_PY", "UpdatedBnchmk", "Sav_rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "QualScore", "Met_QPS")
 
 
 utilization_variables <- c("ACO_Num", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "readm_Rate_1000", "prov_Rate_1000",

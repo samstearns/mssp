@@ -122,9 +122,9 @@ load_puf_file <- function(year="1000", enhance_data=TRUE, standardize_data=FALSE
 
     if (year != 2013) {
       df$CMS_HCC_RiskScore_PY <- (df$CMS_HCC_RiskScore_DIS_PY * df$N_AB_Year_DIS_PY +
-                                    df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
-                                    df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
-                                    df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
+                                  df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
+                                  df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
+                                  df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
     }
   }
 
