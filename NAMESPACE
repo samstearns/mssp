@@ -2,6 +2,7 @@
 
 export(cost_metrics)
 export(load_puf_file)
+export(load_enhanced_puf_file)
 export(lookup_aco_by_state)
 export(lookup_aco_num)
 export(profile_expenditures)

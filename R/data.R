@@ -78,12 +78,11 @@ standard_fields_2013 <- c(
 #' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
 #'
 #' @param year MSSP performance year.
-#' @param enhance_data Flag to standardize variables.
 #' @return Data frame with mssp data.
 #' @examples
 #' load_puf_file(2016)
 #' @export
-load_puf_file <- function(year="1000", enhance_data=TRUE, standardize_data=FALSE) {
+load_puf_file <- function(year="1000") {
 
   if (!requireNamespace("RCurl", quietly = TRUE)) {
     stop("Package \"pkg\" needed for this function to work. Please install it.",
@@ -109,30 +108,36 @@ load_puf_file <- function(year="1000", enhance_data=TRUE, standardize_data=FALSE
 
   df <- LoadPUF(url);
 
-  if (standardize_data == TRUE) {
-    # Adjust for differences in dataset. 2013 has 98 rows, 2014 and 2015 have 121, and 2016 and 2017 have 164
-    if (year == 2013) {
-      # Note: 2013 data has a different format than 2014 and 2015
-    }
-  }
+  return (df)
+}
 
-  if (enhance_data == TRUE) {
 
-    df$Performance_Year <- year
+#' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
+#' and applies enhancements
+#' @param year MSSP performance year.
+#' @return Data frame with mssp data.
+#' @examples
+#' load_puf_file(2016)
+#' @export
 
-    if (year != 2013) {
-      df$CMS_HCC_RiskScore_PY <- (df$CMS_HCC_RiskScore_DIS_PY * df$N_AB_Year_DIS_PY +
-                                  df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
-                                  df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
-                                  df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
-    }
+load_enhanced_puf_file <- function(year="1000") {
+
+  df <- load_puf_file(year)
+
+  df$Performance_Year <- year
+
+  if (year != 2013) {
+    df$CMS_HCC_RiskScore_PY <- (df$CMS_HCC_RiskScore_DIS_PY * df$N_AB_Year_DIS_PY +
+                                    df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
+                                    df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
+                                    df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
   }
 
   return (df)
 }
 
 # Load the PUF files from the web.
-LoadPUF <- function(address) {
+LoadPUF <- function(address) {a
   x <- RCurl::getURL(address)
   df <- read.csv(text = x)
   return (df)
