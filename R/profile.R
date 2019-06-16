@@ -1,7 +1,5 @@
 savings_variables <- c("ACO_Num", "ACO_Name", "N_AB", "CMS_HCC_RiskScore_PY", "Per_Capita_Exp_TOTAL_PY", "UpdatedBnchmk", "Sav_rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "QualScore", "Met_QPS")
 
-#savings_variables <- c("ACO_Num", "ACO_Name", "N_AB",  "Per_Capita_Exp_TOTAL_PY", "UpdatedBnchmk", "Sav_rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "QualScore", "Met_QPS")
-
 utilization_variables <- c("ACO_Num", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "readm_Rate_1000", "prov_Rate_1000",
                            "P_SNF_ADM", "P_EDV_Vis", "P_EDV_Vis_HOSP", "P_CT_VIS", "P_MRI_VIS", "P_EM_Total", "P_EM_PCP_Vis", "P_EM_SP_Vis")
 
@@ -124,7 +122,7 @@ profile_savings <- function(df, aco_num, year = NULL) {
   profile_aco(df, aco_num, savings_variables)
 }
 
-#' Profiles contract savings over time
+#' Trends contract savings over time
 #' @param df SSP data
 #' @param aco_num ACO Number.
 #' @return Data frame with mssp data.
@@ -133,6 +131,30 @@ profile_savings <- function(df, aco_num, year = NULL) {
 #' @export
 trend_savings <- function(df, aco_num) {
   vars <- c("Performance_Year", savings_variables)
+  trend_aco(df, aco_num, vars)
+}
+
+#' Trends expenditures over time
+#' @param df SSP data
+#' @param aco_num ACO Number.
+#' @return Data frame with mssp data.
+#' @examples
+#' trend_savings(df, "A95164")
+#' @export
+trend_expenditures <- function(df, aco_num) {
+  vars <- c("Performance_Year", expenditures_variables)
+  trend_aco(df, aco_num, vars)
+}
+
+#' Trends expenditures over time
+#' @param df SSP data
+#' @param aco_num ACO Number.
+#' @return Data frame with mssp data.
+#' @examples
+#' trend_savings(df, "A95164")
+#' @export
+trend_utilization <- function(df, aco_num) {
+  vars <- c("Performance_Year", utilization_variables)
   trend_aco(df, aco_num, vars)
 }
 
