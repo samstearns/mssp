@@ -1,8 +1,12 @@
-years <- c(2013, 2014, 2015, 2016, 2017)
-url_info <- c("faep-t7cf", "888h-akbg", "7rrf-3gxr", "3jk5-q6dr", "gk7c-vejx")
+# List of years and URLs, in descending order
+#years <- c(2013, 2014, 2015, 2016, 2017)
+years <- c(2017, 2016, 2015, 2014, 2013)
+url_info <- c("gk7c-vejx", "3jk5-q6dr", "7rrf-3gxr", "888h-akbg", "gk7c-vejx")
+
+#url_info <- c("faep-t7cf", "888h-akbg", "7rrf-3gxr", "3jk5-q6dr", "gk7c-vejx")
 url_lookup <- data.frame(years, url_info)
 
-standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Performance_Year"))
+standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"))
 
 #' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
 #'
@@ -40,40 +44,90 @@ load_puf_file <- function(year="1000") {
   return (df)
 }
 
+#' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
+#' from multiple years and integrates into a single dataset.
+#' @return Data frame with mssp data from all years.
+#' @examples
+#' load_multi_year_db()
+#' @export
 load_multi_year_db <- function() {
 
-  # create db
-  i <- 1
+  most_recent_year <- years[1]
+  print(paste("Creating multi-year DB for ", length(years), " years. Most recent year =", most_recent_year))
 
   # for each year in URL_Lookup
   for (year in url_lookup[ ,1]) {
 
-    p <- load_puf_file(year)
+    print(paste("Dowloading PUF file for", year))
 
-    print(paste("Dowloading PUF file for", year, "with", nrow(p), "rows and", length(p), "columns\n"))
+    if ( most_recent_year == year ) {
+      # Download the most recent year.
+      # Use the structure of this year for the multi-year database
+      most_recent_year_data <- load_puf_file(year)
 
-    # Add the year
-    p$Performance_Year <- year
+      # Add a column to record the year
+      most_recent_year_data$Performance_Year <- year
 
-    # Identify the columns to filter for, adjusting for capitalization
-    filtervars <- toupper(names(p)) %in% toupper(standard_fields_2013)
+      ncols <- length(most_recent_year_data)
 
-    newdata <- p[filtervars]
-    # Standardize the column names to merge data frames
-    colnames(newdata) <- toupper(standard_fields_2013)
+      # Preserve original column names for the most recent year
+      original_col_names <- colnames(most_recent_year_data)
 
-    # ADD TO DF
-    if ( i == 1 ) {
-      db <- newdata
+      colnames(most_recent_year_data) <- toupper(colnames(most_recent_year_data))
+
+      multi_year_data <- most_recent_year_data
+
     } else {
-      db <- rbind(db, newdata)
-    }
+      # prior years
+      b <- load_puf_file(year)
+      b$Performance_Year <- year
+      nrows <- nrow(b)
+      # Standardize the column names to merge data frames
+      colnames(b) <- toupper(colnames(b))
 
-    i <- i+1
+      # Create a new DF with N rows from B and N cols from A
+      df <- data.frame(matrix(NA, nrow = nrows, ncol = ncols))
+      colnames(df) <- colnames(most_recent_year_data)
+
+      # Loop through each column in A
+      print(paste("Merging columns for", year))
+
+      for (i in 1:ncols) {
+        col <- colnames(most_recent_year_data)[i]
+        # Look up the position of the column by name
+        colIndex <- which(names(b)==col)
+
+        if (identical(colIndex, integer(0))) {
+          # if not in B, copy blank cell
+          print(paste(col, " is not found in PY ", year))
+        } else {
+          # if found in B, copy to the dataframe
+          df[,i] <- b[,colIndex]
+        }
+
+        colnames(df)[i] <- colnames(most_recent_year_data)[i]
+      }
+
+      # Paste the two dataframes togeter
+      multi_year_data <- rbind(multi_year_data, df)
+    } # end prior year
+  }
+
+  colnames(multi_year_data) <- original_col_names
+
+  # Add the risk score
+  #junk$nm[junk$nm == "B"] <- "b"
+  if (multi_year_data$Performance_Year != 2013) {
+    multi_year_data$CMS_HCC_RiskScore_PY <- (multi_year_data$CMS_HCC_RiskScore_DIS_PY * multi_year_data$N_AB_Year_DIS_PY +
+                                               multi_year_data$CMS_HCC_RiskScore_ESRD_PY * multi_year_data$N_AB_Year_ESRD_PY +
+                                               multi_year_data$CMS_HCC_RiskScore_AGDU_PY * multi_year_data$N_AB_Year_AGED_Dual_PY +
+                                               multi_year_data$CMS_HCC_RiskScore_AGND_PY * multi_year_data$N_AB_Year_AGED_NonDual_PY) / multi_year_data$N_AB
+  } else {
+    multi_year_data$CMS_HCC_RiskScore_PY <- NULL;
   }
 
   # return DB
-  return(db)
+  return(multi_year_data)
 }
 
 #' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
