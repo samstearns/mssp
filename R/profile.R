@@ -146,7 +146,7 @@ trend_expenditures <- function(df, aco_num) {
   trend_aco(df, aco_num, vars)
 }
 
-#' Trends expenditures over time
+#' Trends utilization over time
 #' @param df SSP data
 #' @param aco_num ACO Number.
 #' @return Data frame with mssp data.
