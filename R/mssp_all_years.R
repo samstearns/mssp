@@ -1,13 +1,7 @@
-#' MSSP data from all years, saved in the 2017 column format.
+#' MSSP data from all years.
 #'
-#' A dataset containing the prices and other attributes of almost 54,000
-#' diamonds.
+#' A dataset containing information on ACO performance across all years. Values have been standardized using the variables published in the 2017 SSP PUF file.
 #'
-#' @format A data frame with 1849 rows and 16 variables:
-#' \describe{
-#'   \item{price}{price, in US dollars}
-#'   \item{carat}{weight of the diamond, in carats}
-#'   ...
-#' }
-#' @source \url{http://www.diamondse.info/}
+#' @format A data frame with 1849 rows and 166 variables:
+#' @source \url{https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html}
 "mssp_all_years"

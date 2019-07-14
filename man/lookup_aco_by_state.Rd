@@ -2,7 +2,7 @@
 % Please edit documentation in R/profile.R
 \name{lookup_aco_by_state}
 \alias{lookup_aco_by_state}
-\title{Looks up the ACO Num with an ACO name}
+\title{Returns list of ACOs in a state}
 \usage{
 lookup_aco_by_state(df, str)
 }
@@ -15,7 +15,7 @@ lookup_aco_by_state(df, str)
 ACOs where assigned beneficiaries reside in the state
 }
 \description{
-Looks up the ACO Num with an ACO name
+Returns list of ACOs in a state
 }
 \examples{
 lookup_aco_num("Massachusetts")

@@ -1,14 +1,12 @@
 # List of years and URLs, in descending order
-#years <- c(2013, 2014, 2015, 2016, 2017)
 years <- c(2017, 2016, 2015, 2014, 2013)
 url_info <- c("gk7c-vejx", "3jk5-q6dr", "7rrf-3gxr", "888h-akbg", "gk7c-vejx")
 
-#url_info <- c("faep-t7cf", "888h-akbg", "7rrf-3gxr", "3jk5-q6dr", "gk7c-vejx")
 url_lookup <- data.frame(years, url_info)
 
 standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"))
 
-#' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
+#' Downloads PUF files from CMS website
 #'
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
@@ -44,8 +42,7 @@ load_puf_file <- function(year="1000") {
   return (df)
 }
 
-#' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
-#' from multiple years and integrates into a single dataset.
+#' Downloads PUF files from CMS website from multiple years and integrates into a single dataset.
 #' @return Data frame with mssp data from all years.
 #' @examples
 #' load_multi_year_db()
@@ -130,8 +127,7 @@ load_multi_year_db <- function() {
   return(multi_year_data)
 }
 
-#' Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
-#' and applies enhancements
+#' Downloads PUF files from CMS website and applies enhancements
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
@@ -143,7 +139,7 @@ load_enhanced_puf_file <- function(year="1000") {
 }
 
 
-#' Applies enhancements to a datafrane containin PUF file data
+#' Applies enhancements to a datafrane containing PUF file data
 #' @param df Dataframe containing downloaded PUF file.
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.

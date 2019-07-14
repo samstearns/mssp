@@ -27,7 +27,7 @@ lookup_aco_num <- function(df, str) {
   df[matches, 1:2]
 }
 
-#' Looks up the ACO Num with an ACO name
+#' Returns list of ACOs in a state
 #' @param df SSP data
 #' @param str Name of the state
 #' @return ACOs where assigned beneficiaries reside in the state

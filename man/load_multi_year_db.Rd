@@ -2,8 +2,7 @@
 % Please edit documentation in R/data.R
 \name{load_multi_year_db}
 \alias{load_multi_year_db}
-\title{Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
-from multiple years and integrates into a single dataset.}
+\title{Downloads PUF files from CMS website from multiple years and integrates into a single dataset.}
 \usage{
 load_multi_year_db()
 }
@@ -11,8 +10,7 @@ load_multi_year_db()
 Data frame with mssp data from all years.
 }
 \description{
-Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
-from multiple years and integrates into a single dataset.
+Downloads PUF files from CMS website from multiple years and integrates into a single dataset.
 }
 \examples{
 load_multi_year_db()

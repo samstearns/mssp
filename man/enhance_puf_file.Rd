@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{enhance_puf_file}
 \alias{enhance_puf_file}
-\title{Applies enhancements to a datafrane containin PUF file data}
+\title{Applies enhancements to a datafrane containing PUF file data}
 \usage{
 enhance_puf_file(df, year)
 }
@@ -15,7 +15,7 @@ enhance_puf_file(df, year)
 Data frame with mssp data.
 }
 \description{
-Applies enhancements to a datafrane containin PUF file data
+Applies enhancements to a datafrane containing PUF file data
 }
 \examples{
 load_puf_file(df, 2016)

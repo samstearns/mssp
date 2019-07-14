@@ -2,7 +2,7 @@
 % Please edit documentation in R/data.R
 \name{load_puf_file}
 \alias{load_puf_file}
-\title{Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)}
+\title{Downloads PUF files from CMS website}
 \usage{
 load_puf_file(year = "1000")
 }
@@ -13,7 +13,7 @@ load_puf_file(year = "1000")
 Data frame with mssp data.
 }
 \description{
-Downloads PUF files from CMS website (https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html)
+Downloads PUF files from CMS website
 }
 \examples{
 load_puf_file(2016)

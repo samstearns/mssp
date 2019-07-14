@@ -2,7 +2,7 @@
 % Please edit documentation in R/profile.R
 \name{trend_utilization}
 \alias{trend_utilization}
-\title{Trends expenditures over time}
+\title{Trends utilization over time}
 \usage{
 trend_utilization(df, aco_num)
 }
@@ -15,7 +15,7 @@ trend_utilization(df, aco_num)
 Data frame with mssp data.
 }
 \description{
-Trends expenditures over time
+Trends utilization over time
 }
 \examples{
 trend_savings(df, "A95164")
