@@ -123,42 +123,45 @@ profile_savings <- function(df, aco_num, year = NULL) {
 }
 
 #' Trends contract savings over time
-#' @param df SSP data
 #' @param aco_num ACO Number.
+#' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
 #' @return Data frame with mssp data.
 #' @examples
-#' trend_savings(df, "A95164")
+#' trend_savings("A95164")
 #' @export
-trend_savings <- function(df, aco_num) {
+trend_savings <- function(aco_num, df = NULL) {
   vars <- c("Performance_Year", savings_variables)
   trend_aco(df, aco_num, vars)
 }
 
 #' Trends expenditures over time
-#' @param df SSP data
 #' @param aco_num ACO Number.
-#' @return Data frame with mssp data.
+#' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
+#' @return Data frame with expenditure metrics over time.
 #' @examples
-#' trend_savings(df, "A95164")
+#' trend_expenditures("A95164")
 #' @export
-trend_expenditures <- function(df, aco_num) {
+trend_expenditures <- function(aco_num, df = NULL) {
   vars <- c("Performance_Year", expenditures_variables)
   trend_aco(df, aco_num, vars)
 }
 
 #' Trends utilization over time
-#' @param df SSP data
 #' @param aco_num ACO Number.
-#' @return Data frame with mssp data.
+#' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
+#' @return Data frame with utilization metrics over time.
 #' @examples
-#' trend_savings(df, "A95164")
+#' trend_savings("A95164")
 #' @export
-trend_utilization <- function(df, aco_num) {
+trend_utilization <- function(aco_num, df = NULL) {
   vars <- c("Performance_Year", utilization_variables)
   trend_aco(df, aco_num, vars)
 }
 
 trend_aco <- function(df, aco_num, profile_variables) {
+  if ( is.null(df) ) {
+    df <- mssp_all_years
+  }
   aco_results <- df[which(df$ACO_Num==aco_num), profile_variables]
 }
 

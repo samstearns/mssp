@@ -4,19 +4,19 @@
 \alias{trend_utilization}
 \title{Trends utilization over time}
 \usage{
-trend_utilization(df, aco_num)
+trend_utilization(aco_num, df = NULL)
 }
 \arguments{
-\item{df}{SSP data}
-
 \item{aco_num}{ACO Number.}
+
+\item{df}{Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset}
 }
 \value{
-Data frame with mssp data.
+Data frame with utilization metrics over time.
 }
 \description{
 Trends utilization over time
 }
 \examples{
-trend_savings(df, "A95164")
+trend_savings("A95164")
 }
