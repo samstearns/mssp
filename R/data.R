@@ -78,6 +78,13 @@ load_multi_year_db <- function() {
       # prior years
       b <- load_puf_file(year)
       b$Performance_Year <- year
+
+      # Standardize savings rate calculation
+      if (year == 2014 | year == 2015) {
+        b$Sav_rate <- b$Sav_rate / 100.0;
+        b$MinSavPerc <- b$MinSavPerc / 100.0;
+      }
+
       nrows <- nrow(b)
       # Standardize the column names to merge data frames
       colnames(b) <- toupper(colnames(b))
@@ -113,7 +120,6 @@ load_multi_year_db <- function() {
   colnames(multi_year_data) <- original_col_names
 
   # Add the risk score
-  #junk$nm[junk$nm == "B"] <- "b"
   if (multi_year_data$Performance_Year != 2013) {
     multi_year_data$CMS_HCC_RiskScore_PY <- (multi_year_data$CMS_HCC_RiskScore_DIS_PY * multi_year_data$N_AB_Year_DIS_PY +
                                                multi_year_data$CMS_HCC_RiskScore_ESRD_PY * multi_year_data$N_AB_Year_ESRD_PY +
