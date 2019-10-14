@@ -1,6 +1,6 @@
 # List of years and URLs, in descending order
-years <- c(2017, 2016, 2015, 2014, 2013)
-url_info <- c("gk7c-vejx", "3jk5-q6dr", "7rrf-3gxr", "888h-akbg", "gk7c-vejx")
+years <- c(2018, 2017, 2016, 2015, 2014, 2013)
+url_info <- c("v47u-yq84", "gk7c-vejx", "3jk5-q6dr", "7rrf-3gxr", "888h-akbg", "gk7c-vejx")
 
 url_lookup <- data.frame(years, url_info)
 
@@ -30,6 +30,8 @@ load_puf_file <- function(year="1000") {
     address <- "3jk5-q6dr"
   } else if (year == 2017) {
     address <- "gk7c-vejx"
+  } else if (year == 2018) {
+    address <- "v47u-yq84"
   } else {
     print("Invalid performance year. Please select a value between 2013 and 2017.")
     return()
