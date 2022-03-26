@@ -3,7 +3,7 @@ savings_variables <- c("ACO_Num", "ACO_Name", "N_AB", "CMS_HCC_RiskScore_PY", "P
 utilization_variables <- c("ACO_Num", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "readm_Rate_1000", "prov_Rate_1000",
                            "P_SNF_ADM", "P_EDV_Vis", "P_EDV_Vis_HOSP", "P_CT_VIS", "P_MRI_VIS", "P_EM_Total", "P_EM_PCP_Vis", "P_EM_SP_Vis")
 
-expenditures_variables <- c("ACO_Num", "ACO_Name", "CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab",  "CapAnn_INP_Psych", "readm_Rate_1000", "prov_Rate_1000",
+expenditures_variables <- c("ACO_Num", "ACO_Name", "CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab",  "CapAnn_INP_Psych",
                             "CapAnn_HSP", "CapAnn_SNF", "CapAnn_INP_Other", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME")
 
 # Note: ACO40 removed due to non-numeric scores
