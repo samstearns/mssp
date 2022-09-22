@@ -111,7 +111,7 @@ load_puf_file <- function(year="1000") {
     return()
   }
 
-  df <- fromJSON(address);
+  df <- jsonlite::fromJSON(address);
 
   # Convert the column types from chr by writing to a temporary CSV
   filename = paste0(tempdir(), "/foo", ".csv");
