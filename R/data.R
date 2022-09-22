@@ -1,10 +1,79 @@
 # List of years and URLs, in descending order
-years <- c(2018, 2017, 2016, 2015, 2014, 2013)
-url_info <- c("v47u-yq84", "gk7c-vejx", "3jk5-q6dr", "7rrf-3gxr", "888h-akbg", "gk7c-vejx")
+years <- c(2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013);
 
-url_lookup <- data.frame(years, url_info)
+standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"));
 
-standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"))
+per_capita_exps <- c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
+                             "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME",
+                     "Per_Capita_Exp_ALL_ESRD_BY1",
+                     "Per_Capita_Exp_ALL_DIS_BY1",
+                     "Per_Capita_Exp_ALL_AGDU_BY1",
+                     "Per_Capita_Exp_ALL_AGND_BY1",
+                     "Per_Capita_Exp_ALL_ESRD_BY2",
+                     "Per_Capita_Exp_ALL_DIS_BY2",
+                     "Per_Capita_Exp_ALL_AGDU_BY2",
+                     "Per_Capita_Exp_ALL_AGND_BY2",
+                     "Per_Capita_Exp_ALL_ESRD_BY3",
+                     "Per_Capita_Exp_ALL_DIS_BY3",
+                     "Per_Capita_Exp_ALL_AGDU_BY3",
+                     "Per_Capita_Exp_ALL_AGND_BY3",
+                     "Per_Capita_Exp_ALL_ESRD_PY",
+                     "Per_Capita_Exp_ALL_DIS_PY",
+                     "Per_Capita_Exp_ALL_AGDU_PY",
+                     "Per_Capita_Exp_ALL_AGND_PY",
+                     "Per_Capita_Exp_TOTAL_PY"
+                     );
+num_benes <- c(
+  "N_AB",
+  "N_AB_Year_ESRD_BY3",
+  "N_AB_Year_DIS_BY3",
+  "N_AB_Year_AGED_Dual_BY3",
+  "N_AB_Year_AGED_NonDual_BY3",
+  "N_AB_Year_PY",
+  "N_AB_Year_ESRD_PY",
+  "N_AB_Year_DIS_PY",
+  "N_AB_Year_AGED_Dual_PY",
+  "N_AB_Year_AGED_NonDual_PY",
+  "N_Ben_Age_0_64",
+  "N_Ben_Age_65_74",
+  "N_Ben_Age_75_84",
+  "N_Ben_Age_85plus",
+  "N_Ben_Female",
+  "N_Ben_Male",
+  "N_Ben_Race_White",
+  "N_Ben_Race_Black",
+  "N_Ben_Race_Asian",
+  "N_Ben_Race_Hisp",
+  "N_Ben_Race_Native",
+  "N_Ben_Race_Other"
+);
+
+util_rates <- c(
+  "ADM",
+  "ADM_S_Trm",
+  "ADM_L_Trm",
+  "ADM_Rehab",
+  "ADM_Psych",
+  "P_EDV_Vis",
+  "P_EDV_Vis_HOSP",
+  "P_CT_VIS",
+  "P_MRI_VIS",
+  "P_EM_Total",
+  "P_EM_PCP_Vis",
+  "P_EM_SP_Vis",
+  "P_Nurse_Vis",
+  "P_FQHC_RHC_Vis",
+  "P_SNF_ADM",
+  "SNF_LOS",
+  "SNF_PayperStay"
+);
+
+bmrk_values <- c("BnchmkMinExp", "GenSaveLoss", "DisAdj", "EarnSaveLoss", "UpdatedBnchmk", "HistBnchmk", "ABtotBnchmk", "ABtotExp", "Adv_Pay_Amt");
+
+percentage_savings <- c("Sav_Rate", "MinSavPerc", "MaxShareRate", "FinalShareRate", "QualScore");
+
+#  "ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"))
+
 
 #' Downloads PUF files from CMS website
 #'
@@ -15,33 +84,78 @@ standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "P
 #' @export
 load_puf_file <- function(year="1000") {
 
-  if (!requireNamespace("RCurl", quietly = TRUE)) {
-    stop("Package \"pkg\" needed for this function to work. Please install it.",
-         call. = FALSE)
+  if (!requireNamespace("jsonlite", quietly = TRUE)) {
+    stop("Package \"pkg\" needed for this function to work. Please install it.", call. = FALSE)
   }
 
   if (year == 2013) {
-    address <- "faep-t7cf"
+    address <- "https://data.cms.gov/data-api/v1/dataset/bc90f498-76f4-4e75-8225-8aae30336059/data"
   } else if (year == 2014) {
-    address <- "888h-akbg"
+    address <- "https://data.cms.gov/data-api/v1/dataset/0ef9b1e2-e23b-4a01-921c-1ac7290c814b/data"
   } else if (year == 2015) {
-    address <- "7rrf-3gxr"
+    address <- "https://data.cms.gov/data-api/v1/dataset/156c00e2-ab42-4923-b54f-09c031f5f28d/data"
   } else if (year == 2016) {
-    address <- "3jk5-q6dr"
+    address <- "https://data.cms.gov/data-api/v1/dataset/a290fdd3-976a-4fc9-9139-a98193b3af82/data"
   } else if (year == 2017) {
-    address <- "gk7c-vejx"
+    address <- "https://data.cms.gov/data-api/v1/dataset/3b306450-1836-417b-b779-7d70fd2fc734/data"
   } else if (year == 2018) {
-    address <- "v47u-yq84"
+    address <- "https://data.cms.gov/data-api/v1/dataset/80c86127-8839-4f35-b87b-aa37664afd19/data"
+  } else if (year == 2019) {
+    address <- "https://data.cms.gov/data-api/v1/dataset/9c3a4c69-7d00-4307-9b6f-a080dc90417e/data"
+  } else if (year == 2020) {
+    address <- "https://data.cms.gov/data-api/v1/dataset/8f073013-9db0-4b12-9a34-5802bdabbdfe/data"
+  } else if (year == 2021) {
+    address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
   } else {
-    print("Invalid performance year. Please select a value between 2013 and 2017.")
+    print("Invalid performance year. Please select a value between 2013 and 2021")
     return()
   }
 
-  url = paste("https://data.cms.gov/api/views/", address, "/rows.csv?accessType=DOWNLOAD", sep = "")
+  df <- fromJSON(address);
 
-  df <- LoadPUF(url);
+  # Convert the column types from chr by writing to a temporary CSV
+  filename = paste0(tempdir(), "/foo", ".csv");
+  write.csv(df, file = filename );
+  dfa <- read.csv(filename)
+  # TODO: Remove temp CSV
 
-  return (df)
+  for (value in per_capita_exps) {
+    if(value %in% colnames(dfa)) {
+      dfa[, value] <- gsub(",", "", dfa[,value])
+      dfa[, value] <- as.numeric(dfa[,value])
+    }
+  }
+
+  for (value in num_benes) {
+    if(value %in% colnames(dfa)) {
+      dfa[, value] <- gsub(",", "", dfa[,value])
+      dfa[, value] <- as.numeric(dfa[,value])
+    }
+  }
+
+  for (value in util_rates) {
+    if(value %in% colnames(dfa)) {
+      dfa[, value] <- gsub(",", "", dfa[,value])
+      dfa[, value] <- as.numeric(dfa[,value])
+    }
+  }
+
+  for (value in bmrk_values) {
+    if(value %in% colnames(dfa)) {
+      dfa[, value] <- gsub(",", "", dfa[,value])
+      dfa[, value] <- as.numeric(dfa[,value])
+    }
+  }
+
+  for (value in percentage_savings) {
+    if(value %in% colnames(dfa)) {
+      dfa[, value] <- gsub("%", "", dfa[,value])
+      dfa[, value] <- as.numeric(dfa[,value])
+      dfa[, value] <- dfa[,value] / 100.0
+    }
+  }
+
+  return (dfa)
 }
 
 #' Downloads PUF files from CMS website from multiple years and integrates into a single dataset.
@@ -55,7 +169,7 @@ load_multi_year_db <- function() {
   print(paste("Creating multi-year DB for ", length(years), " years. Most recent year =", most_recent_year))
 
   # for each year in URL_Lookup
-  for (year in url_lookup[ ,1]) {
+  for (year in years) {
 
     print(paste("Dowloading PUF file for", year))
 
@@ -158,11 +272,24 @@ enhance_puf_file <- function(df, year) {
 
   df$Performance_Year <- year
 
+  if (year > 2017) {
+    colnames(df)[1] <- "ACO_Num"
+  }
+
+  # Ensure column names have consistent capitalization, due to 2018 being lowercase
+  names(df) <- tolower(names(df))
+
   if (year != 2013) {
-    df$CMS_HCC_RiskScore_PY <- (df$CMS_HCC_RiskScore_DIS_PY * df$N_AB_Year_DIS_PY +
-                                  df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
-                                  df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
-                                  df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
+    df$cms_hcc_riskscore_py <- (df$cms_hcc_riskscore_dis_py * df$n_ab_year_dis_py +
+                                      df$cms_hcc_riskscore_esrd_py * df$n_ab_year_esrd_py +
+                                      df$cms_hcc_riskscore_agdu_py * df$n_ab_year_aged_dual_py +
+                                     df$cms_hcc_riskscore_agnd_py * df$n_ab_year_aged_nondual_py) / df$n_ab
+
+
+    #    df$CMS_HCC_RiskScore_PY <- (df$CMS_HCC_RiskScore_DIS_PY * df$N_AB_Year_DIS_PY +
+#                                  df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
+#                                  df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
+ #                                 df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
   }
 
   return(df)
