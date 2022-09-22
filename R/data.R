@@ -294,10 +294,3 @@ enhance_puf_file <- function(df, year) {
 
   return(df)
 }
-
-# Load the PUF files from the web.
-LoadPUF <- function(address) {
-  x <- RCurl::getURL(address)
-  df <- read.csv(text = x)
-  return (df)
-}
