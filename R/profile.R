@@ -30,7 +30,7 @@ expenditures_variables <- tolower(c("ACO_ID", "ACO_Name", "CapAnn_INP_All", "Cap
 #' lookup_aco_num("Mercy")
 #' @export
 lookup_aco_num <- function(df, str) {
-  matches <- grep(str, df$ACO_Name)
+  matches <- grep(str, df$aco_name)
 
   df[matches, 1:2]
 }
@@ -40,10 +40,10 @@ lookup_aco_num <- function(df, str) {
 #' @param str Name of the state
 #' @return ACOs where assigned beneficiaries reside in the state
 #' @examples
-#' lookup_aco_num("Massachusetts")
+#' lookup_aco_by_state("Massachusetts")
 #' @export
 lookup_aco_by_state <- function(df, str) {
-  matches <- grep(str, df$ACO_State)
+  matches <- grep(str, df$aco_state)
 
   df[matches, 1:2]
 }

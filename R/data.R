@@ -288,12 +288,6 @@ enhance_puf_file <- function(df, year) {
                                       df$cms_hcc_riskscore_esrd_py * df$n_ab_year_esrd_py +
                                       df$cms_hcc_riskscore_agdu_py * df$n_ab_year_aged_dual_py +
                                      df$cms_hcc_riskscore_agnd_py * df$n_ab_year_aged_nondual_py) / df$n_ab
-
-
-    #    df$CMS_HCC_RiskScore_PY <- (df$CMS_HCC_RiskScore_DIS_PY * df$N_AB_Year_DIS_PY +
-#                                  df$CMS_HCC_RiskScore_ESRD_PY * df$N_AB_Year_ESRD_PY +
-#                                  df$CMS_HCC_RiskScore_AGDU_PY * df$N_AB_Year_AGED_Dual_PY +
- #                                 df$CMS_HCC_RiskScore_AGND_PY * df$N_AB_Year_AGED_NonDual_PY) / df$N_AB
   }
 
   return(df)
