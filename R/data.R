@@ -1,8 +1,6 @@
 # List of years and URLs, in descending order
 years <- c(2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013);
 
-standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"));
-
 per_capita_exps <- tolower(c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
                              "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME",
                      "Per_Capita_Exp_ALL_ESRD_BY1",
@@ -121,7 +119,8 @@ load_puf_file <- function(year="1000") {
   # Standardize the column names to lower case. 2019 is all lower case, other years camel case
   names(dfa) <- tolower(names(dfa))
 
-  #TODO: Remove temp CSV
+  # Remove the temporary CSV file
+  unlink(filename)
 
   for (value in per_capita_exps) {
     if(value %in% colnames(dfa)) {
@@ -183,31 +182,31 @@ load_multi_year_db <- function() {
       most_recent_year_data <- load_puf_file(year)
 
       # Add a column to record the year
-      most_recent_year_data$Performance_Year <- year
+      most_recent_year_data$performance_year <- year
 
       ncols <- length(most_recent_year_data)
 
       # Preserve original column names for the most recent year
       original_col_names <- colnames(most_recent_year_data)
 
-      colnames(most_recent_year_data) <- toupper(colnames(most_recent_year_data))
+      colnames(most_recent_year_data) <- tolower(colnames(most_recent_year_data))
 
       multi_year_data <- most_recent_year_data
 
     } else {
       # prior years
       b <- load_puf_file(year)
-      b$Performance_Year <- year
+      b$performance_year <- year
 
       # Standardize savings rate calculation
       if (year == 2014 | year == 2015) {
-        b$Sav_rate <- b$Sav_rate / 100.0;
-        b$MinSavPerc <- b$MinSavPerc / 100.0;
+        b$sav_rate <- b$sav_rate / 100.0;
+        b$minsavperc <- b$minsavperc / 100.0;
       }
 
       nrows <- nrow(b)
       # Standardize the column names to merge data frames
-      colnames(b) <- toupper(colnames(b))
+      colnames(b) <- tolower(colnames(b))
 
       # Create a new DF with N rows from B and N cols from A
       df <- data.frame(matrix(NA, nrow = nrows, ncol = ncols))
@@ -240,13 +239,13 @@ load_multi_year_db <- function() {
   colnames(multi_year_data) <- original_col_names
 
   # Add the risk score
-  if (multi_year_data$Performance_Year != 2013) {
-    multi_year_data$CMS_HCC_RiskScore_PY <- (multi_year_data$CMS_HCC_RiskScore_DIS_PY * multi_year_data$N_AB_Year_DIS_PY +
-                                               multi_year_data$CMS_HCC_RiskScore_ESRD_PY * multi_year_data$N_AB_Year_ESRD_PY +
-                                               multi_year_data$CMS_HCC_RiskScore_AGDU_PY * multi_year_data$N_AB_Year_AGED_Dual_PY +
-                                               multi_year_data$CMS_HCC_RiskScore_AGND_PY * multi_year_data$N_AB_Year_AGED_NonDual_PY) / multi_year_data$N_AB
+  if (multi_year_data$performance_year != 2013) {
+    multi_year_data$cms_hcc_riskscore_py <- (multi_year_data$cms_hcc_riskscore_dis_py * multi_year_data$n_ab_year_dis_py +
+                                               multi_year_data$cms_hcc_riskscore_esrd_py * multi_year_data$n_ab_year_esrd_py +
+                                               multi_year_data$cms_hcc_riskscore_agdu_py * multi_year_data$n_ab_year_aged_dual_py +
+                                               multi_year_data$cms_hcc_riskscore_agnd_py * multi_year_data$n_ab_year_aged_nondual_py) / multi_year_data$n_ab
   } else {
-    multi_year_data$CMS_HCC_RiskScore_PY <- NULL;
+    multi_year_data$cms_hcc_riskscore_py <- NULL;
   }
 
   # return DB
@@ -274,10 +273,10 @@ load_enhanced_puf_file <- function(year="1000") {
 #' @export
 enhance_puf_file <- function(df, year) {
 
-  df$Performance_Year <- year
+  df$performance_year <- year
 
   if (year > 2017) {
-    colnames(df)[1] <- "ACO_Num"
+    colnames(df)[1] <- "aco_num"
   }
 
   # Ensure column names have consistent capitalization, due to 2018 being lowercase
