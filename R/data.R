@@ -3,7 +3,7 @@ years <- c(2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013);
 
 standard_fields_2013 <- toupper(c("ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"));
 
-per_capita_exps <- c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
+per_capita_exps <- tolower(c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
                              "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME",
                      "Per_Capita_Exp_ALL_ESRD_BY1",
                      "Per_Capita_Exp_ALL_DIS_BY1",
@@ -22,8 +22,8 @@ per_capita_exps <- c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "
                      "Per_Capita_Exp_ALL_AGDU_PY",
                      "Per_Capita_Exp_ALL_AGND_PY",
                      "Per_Capita_Exp_TOTAL_PY"
-                     );
-num_benes <- c(
+                     ));
+num_benes <- tolower(c(
   "N_AB",
   "N_AB_Year_ESRD_BY3",
   "N_AB_Year_DIS_BY3",
@@ -46,9 +46,9 @@ num_benes <- c(
   "N_Ben_Race_Hisp",
   "N_Ben_Race_Native",
   "N_Ben_Race_Other"
-);
+));
 
-util_rates <- c(
+util_rates <- tolower(c(
   "ADM",
   "ADM_S_Trm",
   "ADM_L_Trm",
@@ -66,11 +66,11 @@ util_rates <- c(
   "P_SNF_ADM",
   "SNF_LOS",
   "SNF_PayperStay"
-);
+));
 
-bmrk_values <- c("BnchmkMinExp", "GenSaveLoss", "DisAdj", "EarnSaveLoss", "UpdatedBnchmk", "HistBnchmk", "ABtotBnchmk", "ABtotExp", "Adv_Pay_Amt");
+bmrk_values <- tolower(c("BnchmkMinExp", "GenSaveLoss", "DisAdj", "EarnSaveLoss", "UpdatedBnchmk", "HistBnchmk", "ABtotBnchmk", "ABtotExp", "Adv_Pay_Amt"));
 
-percentage_savings <- c("Sav_Rate", "MinSavPerc", "MaxShareRate", "FinalShareRate", "QualScore");
+percentage_savings <- tolower(c("Sav_Rate", "MinSavPerc", "MaxShareRate", "FinalShareRate", "QualScore"));
 
 #  "ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"))
 
@@ -114,10 +114,14 @@ load_puf_file <- function(year="1000") {
   df <- jsonlite::fromJSON(address);
 
   # Convert the column types from chr by writing to a temporary CSV
-  filename = paste0(tempdir(), "/foo", ".csv");
+  filename = paste0(tempdir(), "/mssp", ".csv");
   write.csv(df, file = filename );
   dfa <- read.csv(filename)
-  # TODO: Remove temp CSV
+
+  # Standardize the column names to lower case. 2019 is all lower case, other years camel case
+  names(dfa) <- tolower(names(dfa))
+
+  #TODO: Remove temp CSV
 
   for (value in per_capita_exps) {
     if(value %in% colnames(dfa)) {

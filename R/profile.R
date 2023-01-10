@@ -1,32 +1,26 @@
-#savings_variables <- c("ACO_ID", "ACO_Name", "N_AB", "CMS_HCC_RiskScore_PY",
-  #                     "Per_Capita_Exp_TOTAL_PY", "UpdatedBnchmk", "Sav_Rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "QualScore", "Met_QPS");
-
-savings_variables <- c("aco_id", "aco_name", "n_ab", "cms_hcc_riskscore_py",
-                       "per_capita_exp_total_py", "updatedbnchmk", "sav_rate", "minsavperc", "bnchmkminexp", "gensaveloss", "earnsaveloss", "qualscore", "met_qps");
+savings_variables <- tolower(c("ACO_ID", "ACO_Name", "N_AB", "CMS_HCC_RiskScore_PY",
+                     "Per_Capita_Exp_TOTAL_PY", "UpdatedBnchmk", "Sav_Rate", "MinSavPerc", "BnchmkMinExp", "GenSaveLoss", "EarnSaveLoss", "QualScore", "Met_QPS"));
 
 
-utilization_variables <- c("ACO_ID", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "P_EDV_Vis",
+utilization_variables <- tolower(c("ACO_ID", "ACO_Name", "ADM", "ADM_S_Trm", "ADM_L_Trm", "ADM_Rehab",  "ADM_Psych", "P_EDV_Vis",
                            "P_EDV_Vis_HOSP","P_CT_VIS", "P_MRI_VIS", "P_EM_Total", "P_EM_PCP_Vis", "P_EM_SP_Vis",
                            "P_Nurse_Vis",
                            "P_FQHC_RHC_Vis",
                            "P_SNF_ADM",
                            "SNF_LOS",
-                           "SNF_PayperStay");
+                           "SNF_PayperStay"));
 #                           #"readm_Rate_1000",
 #                           "prov_Rate_1000",
 #                           "P_SNF_ADM",   );
 
-expenditures_variables <- c("ACO_ID", "ACO_Name", "CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab",  "CapAnn_INP_Psych",
-                            "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME");
+expenditures_variables <- tolower(c("ACO_ID", "ACO_Name", "CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab",  "CapAnn_INP_Psych",
+                            "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME"));
 
 
 # Note: ACO40 removed due to non-numeric scores
-quality_variables <- c("QualScore", "QualPerfShare", "FinalShareRate", "ACO1");
-#, "ACO2", "ACO3", "ACO4", "ACO5", "ACO6", "ACO7", "ACO8", "ACO9", "ACO10");
-#                 "ACO11", "ACO13", "ACO14", "ACO15", "ACO16", "ACO17", "ACO18", "ACO19", "ACO20",
-#                "ACO21", "ACO27", "ACO28", "ACO30",
-#               "ACO31", "ACO33", "ACO34", "ACO35", "ACO36", "ACO37", "ACO38", "ACO39",
-#              "ACO41", "ACO42", "DM_Comp")
+#quality_variables <- c("QualScore", "QualPerfShare", "FinalShareRate", "ACO1", "ACO2", "ACO3", "ACO4", "ACO5", "ACO6", "ACO7",
+#                       "ACO8", "ACO9", "ACO10", "ACO11", "ACO13", "ACO14", "ACO15", "ACO16", "ACO17", "ACO18", "ACO19", "ACO20","ACO21", "ACO27", "ACO28", "ACO30",
+#                       "ACO31", "ACO33", "ACO34", "ACO35", "ACO36", "ACO37", "ACO38", "ACO39", "ACO41", "ACO42", "DM_Comp");
 
 #' Looks up the ACO Num with an ACO name
 #' @param df SSP data
@@ -97,7 +91,6 @@ savings_metrics <- function(df, year = NULL) {
 quality_metrics <- function(df, year = NULL) {
   aco_results <- df[, quality_variables]
 }
-
 
 #' Profiles utilization metrics vs. national sample
 #' @param df SSP data
