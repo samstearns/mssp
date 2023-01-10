@@ -180,14 +180,14 @@ trend_aco <- function(df, aco_num, profile_variables) {
   if ( is.null(df) ) {
     df <- mssp_all_years
   }
-  aco_results <- df[which(df$ACO_Num==aco_num), profile_variables]
+  aco_results <- df[which(df$aco_id==aco_num), profile_variables]
 }
 
 profile_aco <- function(df, aco_num, profile_variables, year = NULL) {
 
   # get results for the selected ACO
   # TODO: filter for year
-  aco_results <- df[which(df$ACO_ID==aco_num), profile_variables]
+  aco_results <- df[which(df$aco_id==aco_num), profile_variables]
 
   # Calculate median values
   median_results <- data.frame(matrix(ncol = length(profile_variables), nrow = 3))
@@ -206,7 +206,7 @@ profile_aco <- function(df, aco_num, profile_variables, year = NULL) {
     median_results[2, i] <- aco_results[1, i] * 1.0 / median_results[1, i] - 1.0
 
     results_dist <- ecdf(df[, var])
-    median_results[3, i] <- results_dist(df[which(df$ACO_ID==aco_num), var])
+    median_results[3, i] <- results_dist(df[which(df$aco_id==aco_num), var])
     i <- i + 1
   }
 
