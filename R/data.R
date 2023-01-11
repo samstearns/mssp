@@ -153,6 +153,13 @@ load_puf_file <- function(year="1000") {
   for (value in percentage_savings) {
     if(value %in% colnames(dfa)) {
       dfa[, value] <- gsub("%", "", dfa[,value])
+
+      # 2014 qual scores includes label P4R for ACOS who selected this option.
+      # Remove this with NAs to avoid warning NAs introduced by coercion
+      if(year == 2014) {
+        dfa[, value] <- gsub("P4R", "", dfa[,value])
+      }
+
       dfa[, value] <- as.numeric(dfa[,value])
       dfa[, value] <- dfa[,value] / 100.0
     }
