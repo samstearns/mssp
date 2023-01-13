@@ -161,7 +161,25 @@ load_puf_file <- function(year="1000") {
       }
 
       dfa[, value] <- as.numeric(dfa[,value])
-      dfa[, value] <- dfa[,value] / 100.0
+
+      if (year == 2021 && (value == "sav_rate" || value == "minsavperc" || value == "qualscore" || value == "maxsharerate" || value == "finalsharerate" )) {
+        dfa[, value] <- dfa[,value] / 100.0
+      }
+      if (year == 2020 && ( value == "qualscore" )) {
+        dfa[, value] <- dfa[,value] / 100.0
+      }
+
+      if (year == 2019 && ( value == "qualscore" )) {
+        dfa[, value] <- dfa[,value] / 100.0
+      }
+
+      if (year == 2015 && (value == "sav_rate" || value == "minsavperc" || value == "qualscore" || value == "finalsharerate" )) {
+        dfa[, value] <- dfa[,value] / 100.0
+      }
+      if (year == 2014 && (value == "sav_rate" || value == "minsavperc" )) {
+        dfa[, value] <- dfa[,value] / 100.0
+      }
+
     }
   }
 
