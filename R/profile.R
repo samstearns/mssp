@@ -148,7 +148,7 @@ profile_savings <- function(df, aco_num, year = NULL) {
 #' trend_savings("A95164")
 #' @export
 trend_savings <- function(aco_num, df = NULL) {
-  vars <- c("Performance_Year", savings_variables)
+  vars <- c("performance_year", savings_variables)
   trend_aco(df, aco_num, vars)
 }
 
@@ -160,7 +160,7 @@ trend_savings <- function(aco_num, df = NULL) {
 #' trend_expenditures("A95164")
 #' @export
 trend_expenditures <- function(aco_num, df = NULL) {
-  vars <- c("Performance_Year", expenditures_variables)
+  vars <- c("performance_year", expenditures_variables)
   trend_aco(df, aco_num, vars)
 }
 
@@ -172,7 +172,7 @@ trend_expenditures <- function(aco_num, df = NULL) {
 #' trend_savings("A95164")
 #' @export
 trend_utilization <- function(aco_num, df = NULL) {
-  vars <- c("Performance_Year", utilization_variables)
+  vars <- c("performance_year", utilization_variables)
   trend_aco(df, aco_num, vars)
 }
 
