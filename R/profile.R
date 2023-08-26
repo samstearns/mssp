@@ -100,8 +100,8 @@ quality_metrics <- function(df, year = NULL) {
 #' @examples
 #' profile_utilization(df, "A95164", 2016)
 #' @export
-profile_utilization <- function(df, aco_num, year = NULL) {
-  profile_aco(df, aco_num, utilization_variables)
+profile_utilization <- function(df, aco_id, year = NULL) {
+  profile_aco(df, aco_id, utilization_variables)
 }
 
 #' Profiles expenditures vs. national sample
@@ -112,8 +112,8 @@ profile_utilization <- function(df, aco_num, year = NULL) {
 #' @examples
 #' profile_expenditure(df, "A95164", 2016)
 #' @export
-profile_expenditures <- function(df, aco_num, year = NULL) {
-  profile_aco(df, aco_num, expenditures_variables)
+profile_expenditures <- function(df, aco_id, year = NULL) {
+  profile_aco(df, aco_id, expenditures_variables)
 }
 
 #' Profiles quality measures vs. national sample
@@ -124,8 +124,8 @@ profile_expenditures <- function(df, aco_num, year = NULL) {
 #' @examples
 #' profile_quality(df, "A95164", 2016)
 #' @export
-profile_quality <- function(df, aco_num, year = NULL) {
-  profile_aco(df, aco_num, quality_variables)
+profile_quality <- function(df, aco_id, year = NULL) {
+  profile_aco(df, aco_id, quality_variables)
 }
 
 #' Profiles contract measures vs. national sample
@@ -136,8 +136,8 @@ profile_quality <- function(df, aco_num, year = NULL) {
 #' @examples
 #' profile_savings(df, "A95164", 2016)
 #' @export
-profile_savings <- function(df, aco_num, year = NULL) {
-  profile_aco(df, aco_num, savings_variables)
+profile_savings <- function(df, aco_id, year = NULL) {
+  profile_aco(df, aco_id, savings_variables)
 }
 
 #' Trends contract savings over time
@@ -147,9 +147,9 @@ profile_savings <- function(df, aco_num, year = NULL) {
 #' @examples
 #' trend_savings("A95164")
 #' @export
-trend_savings <- function(aco_num, df = NULL) {
+trend_savings <- function(aco_id, df = NULL) {
   vars <- c("performance_year", savings_variables)
-  trend_aco(df, aco_num, vars)
+  trend_aco(df, aco_id, vars)
 }
 
 #' Trends expenditures over time
@@ -159,9 +159,9 @@ trend_savings <- function(aco_num, df = NULL) {
 #' @examples
 #' trend_expenditures("A95164")
 #' @export
-trend_expenditures <- function(aco_num, df = NULL) {
+trend_expenditures <- function(aco_id, df = NULL) {
   vars <- c("performance_year", expenditures_variables)
-  trend_aco(df, aco_num, vars)
+  trend_aco(df, aco_id, vars)
 }
 
 #' Trends utilization over time
@@ -171,23 +171,23 @@ trend_expenditures <- function(aco_num, df = NULL) {
 #' @examples
 #' trend_savings("A95164")
 #' @export
-trend_utilization <- function(aco_num, df = NULL) {
+trend_utilization <- function(aco_id, df = NULL) {
   vars <- c("performance_year", utilization_variables)
-  trend_aco(df, aco_num, vars)
+  trend_aco(df, aco_id, vars)
 }
 
-trend_aco <- function(df, aco_num, profile_variables) {
+trend_aco <- function(df, aco_id, profile_variables) {
   if ( is.null(df) ) {
     df <- mssp_all_years
   }
-  aco_results <- df[which(df$aco_id==aco_num), profile_variables]
+  aco_results <- df[which(df$aco_id==aco_id), profile_variables]
 }
 
-profile_aco <- function(df, aco_num, profile_variables, year = NULL) {
+profile_aco <- function(df, aco_id, profile_variables, year = NULL) {
 
   # get results for the selected ACO
   # TODO: filter for year
-  aco_results <- df[which(df$aco_id==aco_num), profile_variables]
+  aco_results <- df[which(df$aco_id==aco_id), profile_variables]
 
   # Calculate median values
   median_results <- data.frame(matrix(ncol = length(profile_variables), nrow = 3))
@@ -206,7 +206,7 @@ profile_aco <- function(df, aco_num, profile_variables, year = NULL) {
     median_results[2, i] <- aco_results[1, i] * 1.0 / median_results[1, i] - 1.0
 
     results_dist <- ecdf(df[, var])
-    median_results[3, i] <- results_dist(df[which(df$aco_id==aco_num), var])
+    median_results[3, i] <- results_dist(df[which(df$aco_id==aco_id), var])
     i <- i + 1
   }
 
