@@ -104,6 +104,8 @@ load_puf_file <- function(year="1000") {
     address <- "https://data.cms.gov/data-api/v1/dataset/8f073013-9db0-4b12-9a34-5802bdabbdfe/data"
   } else if (year == 2021) {
     address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
+  } else if (year == 2022) {
+    address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
   } else {
     print("Invalid performance year. Please select a value between 2013 and 2021")
     return()
@@ -148,6 +150,14 @@ load_puf_file <- function(year="1000") {
       dfa[, value] <- gsub(",", "", dfa[,value])
       dfa[, value] <- as.numeric(dfa[,value])
     }
+  }
+
+  # 2022 risk scores scores includes label * for ACOS small sample size
+  # https://www.hhs.gov/guidance/document/cms-cell-suppression-policy
+  # Remove this with NAs to avoid warning NAs introduced by coercion
+  if(year == 2022) {
+    dfa[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_esrd_py"])
+    dfa[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_esrd_py"])
   }
 
   for (value in percentage_savings) {
