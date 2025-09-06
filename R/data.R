@@ -107,9 +107,11 @@ load_puf_file <- function(year="1000") {
   } else if (year == 2022) {
     address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
   } else if (year == 2023) {
+    address <- "https://data.cms.gov/data-api/v1/dataset/7082a8f1-6d51-4723-853d-086bf254f5fb/data"
+  } else if (year == 2024) {
     address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
   } else {
-    print("Invalid performance year. Please select a value between 2013 and 2021")
+    print("Invalid performance year. Please select a value between 2013 and 2024")
     return()
   }
 
