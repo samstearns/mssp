@@ -1,0 +1,13 @@
+test_that("All files download correctly.", {
+  expect_no_error(load_puf_file(2013))
+  expect_no_error(load_puf_file(2015))
+  expect_no_error(load_puf_file(2016))
+  expect_no_error(load_puf_file(2017))
+  expect_no_error(load_puf_file(2018))
+  expect_no_error(load_puf_file(2019))
+  expect_no_error(load_puf_file(2020))
+  expect_no_error(load_puf_file(2021))
+  expect_no_error(load_puf_file(2022))
+  expect_no_error(load_puf_file(2023))
+  expect_no_error(load_puf_file(2024))
+})
