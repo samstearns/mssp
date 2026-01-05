@@ -4,12 +4,12 @@
 \alias{trend_savings}
 \title{Trends contract savings over time}
 \usage{
-trend_savings(aco_num, df = NULL)
+trend_savings(aco_id, df = NULL)
 }
 \arguments{
-\item{aco_num}{ACO Number.}
-
 \item{df}{Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset}
+
+\item{aco_num}{ACO Number.}
 }
 \value{
 Data frame with mssp data.

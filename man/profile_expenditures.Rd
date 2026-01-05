@@ -4,14 +4,14 @@
 \alias{profile_expenditures}
 \title{Profiles expenditures vs. national sample}
 \usage{
-profile_expenditures(df, aco_num, year = NULL)
+profile_expenditures(df, aco_id, year = NULL)
 }
 \arguments{
 \item{df}{SSP data}
 
-\item{aco_num}{ACO Number.}
-
 \item{year}{MSSP performance year.}
+
+\item{aco_num}{ACO Number.}
 }
 \value{
 Data frame with mssp data.

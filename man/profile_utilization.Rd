@@ -4,14 +4,14 @@
 \alias{profile_utilization}
 \title{Profiles utilization metrics vs. national sample}
 \usage{
-profile_utilization(df, aco_num, year = NULL)
+profile_utilization(df, aco_id, year = NULL)
 }
 \arguments{
 \item{df}{SSP data}
 
-\item{aco_num}{ACO Number.}
-
 \item{year}{MSSP performance year.}
+
+\item{aco_num}{ACO Number.}
 }
 \value{
 Data frame with mssp data.
