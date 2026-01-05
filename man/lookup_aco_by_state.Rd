@@ -18,5 +18,5 @@ ACOs where assigned beneficiaries reside in the state
 Returns list of ACOs in a state
 }
 \examples{
-lookup_aco_num("Massachusetts")
+lookup_aco_by_state("Massachusetts")
 }

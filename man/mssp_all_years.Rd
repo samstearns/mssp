@@ -4,7 +4,9 @@
 \name{mssp_all_years}
 \alias{mssp_all_years}
 \title{MSSP data from all years.}
-\format{A data frame with 1849 rows and 166 variables:}
+\format{
+A data frame with 1849 rows and 166 variables:
+}
 \source{
 \url{https://www.cms.gov/Research-Statistics-Data-and-Systems/Downloadable-Public-Use-Files/SSPACO/index.html}
 }
