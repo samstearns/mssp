@@ -69,7 +69,7 @@ quality_metrics <- function(df, year = NULL) {
 
 #' Profiles utilization metrics vs. national sample
 #' @param df SSP data
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID.
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
@@ -81,7 +81,7 @@ profile_utilization <- function(df, aco_id, year = NULL) {
 
 #' Profiles expenditures vs. national sample
 #' @param df SSP data
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
@@ -93,7 +93,7 @@ profile_expenditures <- function(df, aco_id, year = NULL) {
 
 #' Profiles quality measures vs. national sample
 #' @param df SSP data
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
@@ -105,7 +105,7 @@ profile_quality <- function(df, aco_id, year = NULL) {
 
 #' Profiles contract measures vs. national sample
 #' @param df SSP data
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
@@ -116,7 +116,7 @@ profile_savings <- function(df, aco_id, year = NULL) {
 }
 
 #' Trends contract savings over time
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID
 #' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
 #' @return Data frame with mssp data.
 #' @examples
@@ -128,7 +128,7 @@ trend_savings <- function(aco_id, df = NULL) {
 }
 
 #' Trends expenditures over time
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID
 #' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
 #' @return Data frame with expenditure metrics over time.
 #' @examples
@@ -140,7 +140,7 @@ trend_expenditures <- function(aco_id, df = NULL) {
 }
 
 #' Trends utilization over time
-#' @param aco_num ACO Number.
+#' @param aco_id ACO ID
 #' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
 #' @return Data frame with utilization metrics over time.
 #' @examples

@@ -7,9 +7,9 @@
 trend_savings(aco_id, df = NULL)
 }
 \arguments{
-\item{df}{Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset}
+\item{aco_id}{ACO ID}
 
-\item{aco_num}{ACO Number.}
+\item{df}{Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset}
 }
 \value{
 Data frame with mssp data.

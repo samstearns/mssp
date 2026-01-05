@@ -9,9 +9,9 @@ profile_expenditures(df, aco_id, year = NULL)
 \arguments{
 \item{df}{SSP data}
 
-\item{year}{MSSP performance year.}
+\item{aco_id}{ACO ID}
 
-\item{aco_num}{ACO Number.}
+\item{year}{MSSP performance year.}
 }
 \value{
 Data frame with mssp data.
