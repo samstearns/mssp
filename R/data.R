@@ -156,15 +156,17 @@ load_puf_file <- function(year="1000") {
     }
   }
 
-  # 2022 risk scores scores includes label * for ACOS small sample size
+  # starting in 2022, risk scores scores includes label * for ACOS small sample size
   # https://www.hhs.gov/guidance/document/cms-cell-suppression-policy
   # Remove this with NAs to avoid warning NAs introduced by coercion
-  if(year == 2022) {
-    dfa[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_esrd_py"])
-    dfa[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_esrd_py"])
-  }
+  dfa[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_esrd_py"])
+  dfa[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_esrd_py"])
 
-  for (value in percentage_savings) {
+  dfa[, "cms_hcc_riskscore_agdu_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_agdu_py"])
+  dfa[, "cms_hcc_riskscore_agdu_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_agdu_py"])
+
+
+    for (value in percentage_savings) {
     if(value %in% colnames(dfa)) {
       dfa[, value] <- gsub("%", "", dfa[,value])
 
@@ -329,12 +331,19 @@ enhance_puf_file <- function(df, year) {
   names(df) <- tolower(names(df))
 
 
-  if (year != 2013) {
-    df$cms_hcc_riskscore_py <- (df$cms_hcc_riskscore_dis_py * df$n_ab_year_dis_py +
+  # Standardize column names
+  if (year < 2015) {
+    colnames(df)[colnames(df) == 'n_ab_year_dis'] <- 'n_ab_year_dis_py'
+    colnames(df)[colnames(df) == 'n_ab_year_esrd'] <- 'n_ab_year_esrd_py'
+    colnames(df)[colnames(df) == 'n_ab_year_aged_dual'] <- 'n_ab_year_aged_dual_py'
+    colnames(df)[colnames(df) == 'n_ab_year_aged_nondual'] <- 'n_ab_year_aged_nondual_py'
+  }
+
+  # Create risk score
+  df$cms_hcc_riskscore_py <- (df$cms_hcc_riskscore_dis_py * df$n_ab_year_dis_py +
                                       df$cms_hcc_riskscore_esrd_py * df$n_ab_year_esrd_py +
                                       df$cms_hcc_riskscore_agdu_py * df$n_ab_year_aged_dual_py +
                                      df$cms_hcc_riskscore_agnd_py * df$n_ab_year_aged_nondual_py) / df$n_ab
-  }
 
   return(df)
 }
