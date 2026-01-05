@@ -22,31 +22,6 @@ expenditures_variables <- tolower(c("ACO_ID", "ACO_Name", "CapAnn_INP_All", "Cap
 #                       "ACO8", "ACO9", "ACO10", "ACO11", "ACO13", "ACO14", "ACO15", "ACO16", "ACO17", "ACO18", "ACO19", "ACO20","ACO21", "ACO27", "ACO28", "ACO30",
 #                       "ACO31", "ACO33", "ACO34", "ACO35", "ACO36", "ACO37", "ACO38", "ACO39", "ACO41", "ACO42", "DM_Comp");
 
-#' Looks up the ACO Num with an ACO name
-#' @param df SSP data
-#' @param str Search string with the name of the ACO
-#' @return Potential matches
-#' @examples
-#' lookup_aco_num("Mercy")
-#' @export
-lookup_aco_num <- function(df, str) {
-  matches <- grep(str, df$aco_name)
-
-  df[matches, 1:2]
-}
-
-#' Returns list of ACOs in a state
-#' @param df SSP data
-#' @param str Name of the state
-#' @return ACOs where assigned beneficiaries reside in the state
-#' @examples
-#' lookup_aco_by_state("Massachusetts")
-#' @export
-lookup_aco_by_state <- function(df, str) {
-  matches <- grep(str, df$aco_state)
-
-  df[matches, 1:2]
-}
 
 #' Helper function to access utilization metrics
 #' @param df SSP data
