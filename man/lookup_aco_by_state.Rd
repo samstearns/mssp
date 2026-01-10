@@ -18,5 +18,6 @@ ACOs where assigned beneficiaries reside in the state
 Returns list of ACOs in a state
 }
 \examples{
-lookup_aco_by_state("Massachusetts")
+a <- load_puf_file(2022)
+lookup_aco_by_state(a, "Maine")
 }

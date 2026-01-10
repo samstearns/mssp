@@ -18,5 +18,6 @@ Potential matches
 Looks up the ACO Num with an ACO name
 }
 \examples{
-lookup_aco_num("Mercy")
+a <- load_puf_file(2022)
+lookup_aco_num(a, "Mercy")
 }
