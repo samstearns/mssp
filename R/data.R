@@ -207,7 +207,7 @@ load_puf_file <- function(year="1000") {
 #' @examples
 #' load_multi_year_db()
 #' @export
-load_multi_year_db <- function() {
+load_multi_year_db <- function(verbose = FALSE) {
 
   most_recent_year <- years[1]
   print(paste("Creating multi-year DB for ", length(years), " years. Most recent year =", most_recent_year))
@@ -215,7 +215,7 @@ load_multi_year_db <- function() {
   # for each year in URL_Lookup
   for (year in years) {
 
-    print(paste("Dowloading PUF file for", year))
+    print(paste("Downloading PUF file for", year))
 
     if ( most_recent_year == year ) {
       # Download the most recent year.
@@ -254,8 +254,9 @@ load_multi_year_db <- function() {
       colnames(df) <- colnames(most_recent_year_data)
 
       # Loop through each column in A
-      print(paste("Merging columns for", year))
-
+      if (verbose) {
+        print(paste("Merging columns for", year))
+      }
       for (i in 1:ncols) {
         col <- colnames(most_recent_year_data)[i]
         # Look up the position of the column by name
@@ -263,7 +264,9 @@ load_multi_year_db <- function() {
 
         if (identical(colIndex, integer(0))) {
           # if not in B, copy blank cell
-          print(paste(col, " is not found in PY ", year))
+          if (verbose) {
+            print(paste(col, " is not found in PY ", year))
+          }
         } else {
           # if found in B, copy to the dataframe
           df[,i] <- b[,colIndex]
