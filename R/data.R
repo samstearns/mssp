@@ -1,5 +1,4 @@
 # List of years and URLs, in descending order
-years <- c(2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013);
 
 per_capita_exps <- tolower(c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
                              "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME",
