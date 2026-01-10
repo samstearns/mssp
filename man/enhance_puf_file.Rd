@@ -18,5 +18,6 @@ Data frame with mssp data.
 Applies enhancements to a datafrane containing PUF file data
 }
 \examples{
-load_puf_file(df, 2016)
+df <- load_puf_file(2016)
+enhance_puf_file(df, 2016)
 }

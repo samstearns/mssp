@@ -4,7 +4,10 @@
 \alias{load_multi_year_db}
 \title{Downloads PUF files from CMS website from multiple years and integrates into a single dataset.}
 \usage{
-load_multi_year_db()
+load_multi_year_db(verbose = FALSE)
+}
+\arguments{
+\item{verbose}{Provides detail on download process if set to TRUE}
 }
 \value{
 Data frame with mssp data from all years.
@@ -13,5 +16,5 @@ Data frame with mssp data from all years.
 Downloads PUF files from CMS website from multiple years and integrates into a single dataset.
 }
 \examples{
-load_multi_year_db()
+df <- load_multi_year_db()
 }

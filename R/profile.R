@@ -39,7 +39,8 @@ utilization_metrics <- function(df, year = NULL) {
 #' @param year MSSP performance year.
 #' @return Data frame with mssp cost metrics.
 #' @examples
-#' cost_metrics(df, 2016)
+#' a <- load_puf_file(2022)
+#' cost_metrics(a)
 #' @export
 cost_metrics <- function(df, year = NULL) {
   aco_results <- df[, expenditures_variables]
@@ -158,6 +159,8 @@ trend_aco <- function(df, aco_id, profile_variables) {
   aco_results <- df[which(df$aco_id==aco_id), profile_variables]
 }
 
+#' @importFrom stats median
+#' @importFrom stats ecdf
 profile_aco <- function(df, aco_id, profile_variables, year = NULL) {
 
   # get results for the selected ACO

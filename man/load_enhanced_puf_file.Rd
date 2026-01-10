@@ -16,5 +16,5 @@ Data frame with mssp data.
 Downloads PUF files from CMS website and applies enhancements
 }
 \examples{
-load_puf_file(2016)
+load_enhanced_puf_file(2016)
 }

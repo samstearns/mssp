@@ -80,6 +80,8 @@ percentage_savings <- tolower(c("Sav_Rate", "MinSavPerc", "MaxShareRate", "Final
 #' @examples
 #' load_puf_file(2016)
 #' @export
+#' @importFrom utils write.csv
+#' @importFrom utils read.csv
 load_puf_file <- function(year="1000") {
 
   if (!requireNamespace("jsonlite", quietly = TRUE)) {
@@ -203,9 +205,10 @@ load_puf_file <- function(year="1000") {
 }
 
 #' Downloads PUF files from CMS website from multiple years and integrates into a single dataset.
+#' @param verbose Provides detail on download process if set to TRUE
 #' @return Data frame with mssp data from all years.
 #' @examples
-#' load_multi_year_db()
+#' df <- load_multi_year_db()
 #' @export
 load_multi_year_db <- function(verbose = FALSE) {
 
@@ -300,7 +303,7 @@ load_multi_year_db <- function(verbose = FALSE) {
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
-#' load_puf_file(2016)
+#' load_enhanced_puf_file(2016)
 #' @export
 load_enhanced_puf_file <- function(year="1000") {
   df <- load_puf_file(year)
@@ -313,7 +316,8 @@ load_enhanced_puf_file <- function(year="1000") {
 #' @param year MSSP performance year.
 #' @return Data frame with mssp data.
 #' @examples
-#' load_puf_file(df, 2016)
+#' df <- load_puf_file(2016)
+#' enhance_puf_file(df, 2016)
 #' @export
 enhance_puf_file <- function(df, year) {
 
