@@ -6,7 +6,6 @@ Author: Sam Stearns
 Maintainer: Sam Stearns <sam.stearns@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-    (https://data.cms.gov/medicare-shared-savings-program/performance-year-financial-and-quality-results)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
