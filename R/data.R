@@ -332,7 +332,6 @@ load_enhanced_puf_file <- function(year="1000") {
   return (enhance_puf_file(df, year))
 }
 
-
 #' Applies enhancements to a datafrane containing PUF file data
 #' @param df Dataframe containing downloaded PUF file.
 #' @param year MSSP performance year.
@@ -344,7 +343,6 @@ load_enhanced_puf_file <- function(year="1000") {
 enhance_puf_file <- function(df, year) {
 
   df$performance_year <- year
-
 
   if (year < 2018) {
     colnames(df)[2] <- "ACO_NUM"
