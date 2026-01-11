@@ -18,5 +18,5 @@ Data frame with expenditure metrics over time.
 Trends expenditures over time
 }
 \examples{
-trend_expenditures("A95164")
+trend_expenditures("A1490")
 }

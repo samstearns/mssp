@@ -18,5 +18,5 @@ Data frame with utilization metrics over time.
 Trends utilization over time
 }
 \examples{
-trend_savings("A95164")
+trend_savings("A1490")
 }

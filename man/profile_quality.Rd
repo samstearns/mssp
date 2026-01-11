@@ -20,5 +20,6 @@ Data frame with mssp data.
 Profiles quality measures vs. national sample
 }
 \examples{
-profile_quality(df, "A95164", 2016)
+a <- load_enhanced_puf_file(2022)
+profile_quality(a, "A1490")
 }

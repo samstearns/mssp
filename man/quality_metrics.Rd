@@ -18,5 +18,6 @@ Data frame with mssp quality metrics.
 Helper function to access quality metrics
 }
 \examples{
-quality_metrics(df, 2016)
+a <- load_enhanced_puf_file(2022)
+quality_metrics(a, 2022)
 }

@@ -18,5 +18,5 @@ Data frame with mssp data.
 Trends contract savings over time
 }
 \examples{
-trend_savings("A95164")
+trend_savings("A1490")
 }

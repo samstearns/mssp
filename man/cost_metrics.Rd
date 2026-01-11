@@ -18,6 +18,6 @@ Data frame with mssp cost metrics.
 Helper function to access cost metrics
 }
 \examples{
-a <- load_puf_file(2022)
+a <- load_enhanced_puf_file(2022)
 cost_metrics(a)
 }

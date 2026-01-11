@@ -18,5 +18,6 @@ Data frame with mssp savings metrics.
 Helper function to access savings metrics
 }
 \examples{
-savings_metrics(df, 2016)
+a <- load_enhanced_puf_file(2022)
+savings_metrics(a, 2022)
 }

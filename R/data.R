@@ -1,7 +1,7 @@
 # List of years and URLs, in descending order
 years <- c(2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013);
 
-per_capita_exps <- tolower(c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
+per_capita_exps <- tolower(c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_L_trm", "CapAnn_INP_Rehab", "CapAnn_INP_Psych",
                              "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME",
                      "Per_Capita_Exp_ALL_ESRD_BY1",
                      "Per_Capita_Exp_ALL_DIS_BY1",
@@ -21,6 +21,7 @@ per_capita_exps <- tolower(c("CapAnn_INP_All", "CapAnn_INP_S_trm", "CapAnn_INP_R
                      "Per_Capita_Exp_ALL_AGND_PY",
                      "Per_Capita_Exp_TOTAL_PY"
                      ));
+
 num_benes <- tolower(c(
   "N_AB",
   "N_AB_Year_ESRD_BY3",
@@ -133,6 +134,7 @@ load_puf_file <- function(year="1000") {
   for (value in per_capita_exps) {
     if(value %in% colnames(dfa)) {
       dfa[, value] <- gsub(",", "", dfa[,value])
+      dfa[, value] <- gsub("*", "", dfa[,value])
       dfa[, value] <- as.numeric(dfa[,value])
     }
   }
@@ -147,6 +149,7 @@ load_puf_file <- function(year="1000") {
   for (value in util_rates) {
     if(value %in% colnames(dfa)) {
       dfa[, value] <- gsub(",", "", dfa[,value])
+      dfa[, value] <- gsub("*", "", dfa[,value])
       dfa[, value] <- as.numeric(dfa[,value])
     }
   }
@@ -161,6 +164,17 @@ load_puf_file <- function(year="1000") {
   # starting in 2022, risk scores scores includes label * for ACOS small sample size
   # https://www.hhs.gov/guidance/document/cms-cell-suppression-policy
   # Remove this with NAs to avoid warning NAs introduced by coercion
+
+#  dfa[, "capann_inp_all"] <- gsub("*", "", dfa[,"capann_inp_all"])
+#  dfa[, "capann_inp_all"] <- as.numeric(dfa[,"capann_inp_all"])
+
+ # dfa[, "capann_inp_s_trm"] <- gsub("*", "", dfa[,"capann_inp_s_trm"])
+ # dfa[, "capann_inp_s_trm"] <- as.numeric(dfa[,"capann_inp_s_trm"])
+
+  #dfa[, "capann_inp_l_trm"] <- gsub("*", "", dfa[,"capann_inp_l_trm"])
+#  dfa[, "capann_inp_l_trm"] <- as.numeric(dfa[,"capann_inp_l_trm"])
+
+
   dfa[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_esrd_py"])
   dfa[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_esrd_py"])
 
@@ -199,7 +213,10 @@ load_puf_file <- function(year="1000") {
       }
 
     }
-  }
+    }
+
+  # Remove non-ASCII characters in ACO Name
+  dfa[, "aco_name"] <- iconv(dfa[, "aco_name"], from = "UTF-8", to = "ASCII", sub = "")
 
   return (dfa)
 }
@@ -212,8 +229,11 @@ load_puf_file <- function(year="1000") {
 #' @export
 load_multi_year_db <- function(verbose = FALSE) {
 
+  return();
   most_recent_year <- years[1]
   print(paste("Creating multi-year DB for ", length(years), " years. Most recent year =", most_recent_year))
+
+  return();
 
   # for each year in URL_Lookup
   for (year in years) {
@@ -223,47 +243,47 @@ load_multi_year_db <- function(verbose = FALSE) {
     if ( most_recent_year == year ) {
       # Download the most recent year.
       # Use the structure of this year for the multi-year database
-      most_recent_year_data <- load_puf_file(year)
+  #    most_recent_year_data <- load_puf_file(year)
 
       # Add a column to record the year
-      most_recent_year_data$performance_year <- year
+ #     most_recent_year_data$performance_year <- year
 
-      ncols <- length(most_recent_year_data)
+  #    ncols <- length(most_recent_year_data)
 
       # Preserve original column names for the most recent year
-      original_col_names <- colnames(most_recent_year_data)
+#      original_col_names <- colnames(most_recent_year_data)
 
-      colnames(most_recent_year_data) <- tolower(colnames(most_recent_year_data))
+#      colnames(most_recent_year_data) <- tolower(colnames(most_recent_year_data))
 
-      multi_year_data <- most_recent_year_data
+ #     multi_year_data <- most_recent_year_data
 
     } else {
       # prior years
-      b <- load_puf_file(year)
-      b$performance_year <- year
+ #     b <- load_puf_file(year)
+ #     b$performance_year <- year
 
       # Standardize savings rate calculation
       if (year == 2014 | year == 2015) {
-        b$sav_rate <- b$sav_rate / 100.0;
-        b$minsavperc <- b$minsavperc / 100.0;
+ #       b$sav_rate <- b$sav_rate / 100.0;
+ #       b$minsavperc <- b$minsavperc / 100.0;
       }
 
-      nrows <- nrow(b)
+  #    nrows <- nrow(b)
       # Standardize the column names to merge data frames
-      colnames(b) <- tolower(colnames(b))
+  #    colnames(b) <- tolower(colnames(b))
 
       # Create a new DF with N rows from B and N cols from A
-      df <- data.frame(matrix(NA, nrow = nrows, ncol = ncols))
-      colnames(df) <- colnames(most_recent_year_data)
+ #     df <- data.frame(matrix(NA, nrow = nrows, ncol = ncols))
+ #     colnames(df) <- colnames(most_recent_year_data)
 
       # Loop through each column in A
       if (verbose) {
         print(paste("Merging columns for", year))
       }
       for (i in 1:ncols) {
-        col <- colnames(most_recent_year_data)[i]
+       # col <- colnames(most_recent_year_data)[i]
         # Look up the position of the column by name
-        colIndex <- which(names(b)==col)
+       # colIndex <- which(names(b)==col)
 
         if (identical(colIndex, integer(0))) {
           # if not in B, copy blank cell
@@ -272,27 +292,29 @@ load_multi_year_db <- function(verbose = FALSE) {
           }
         } else {
           # if found in B, copy to the dataframe
-          df[,i] <- b[,colIndex]
+         # df[,i] <- b[,colIndex]
         }
 
-        colnames(df)[i] <- colnames(most_recent_year_data)[i]
+        #colnames(df)[i] <- colnames(most_recent_year_data)[i]
       }
 
       # Paste the two dataframes togeter
-      multi_year_data <- rbind(multi_year_data, df)
+     # multi_year_data <- rbind(multi_year_data, df)
     } # end prior year
   }
 
-  colnames(multi_year_data) <- original_col_names
+  return();
+
+ # colnames(multi_year_data) <- original_col_names
 
   # Add the risk score
   if (multi_year_data$performance_year != 2013) {
-    multi_year_data$cms_hcc_riskscore_py <- (multi_year_data$cms_hcc_riskscore_dis_py * multi_year_data$n_ab_year_dis_py +
-                                               multi_year_data$cms_hcc_riskscore_esrd_py * multi_year_data$n_ab_year_esrd_py +
-                                               multi_year_data$cms_hcc_riskscore_agdu_py * multi_year_data$n_ab_year_aged_dual_py +
-                                               multi_year_data$cms_hcc_riskscore_agnd_py * multi_year_data$n_ab_year_aged_nondual_py) / multi_year_data$n_ab
+  #  multi_year_data$cms_hcc_riskscore_py <- (multi_year_data$cms_hcc_riskscore_dis_py * multi_year_data$n_ab_year_dis_py +
+   #                                            multi_year_data$cms_hcc_riskscore_esrd_py * multi_year_data$n_ab_year_esrd_py +
+    #                                           multi_year_data$cms_hcc_riskscore_agdu_py * multi_year_data$n_ab_year_aged_dual_py +
+     #                                          multi_year_data$cms_hcc_riskscore_agnd_py * multi_year_data$n_ab_year_aged_nondual_py) / multi_year_data$n_ab
   } else {
-    multi_year_data$cms_hcc_riskscore_py <- NULL;
+    #multi_year_data$cms_hcc_riskscore_py <- NULL;
   }
 
   # return DB

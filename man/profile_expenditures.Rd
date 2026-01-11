@@ -20,5 +20,6 @@ Data frame with mssp data.
 Profiles expenditures vs. national sample
 }
 \examples{
-profile_expenditure(df, "A95164", 2016)
+a <- load_enhanced_puf_file(2022)
+profile_expenditures(a, "A1490")
 }

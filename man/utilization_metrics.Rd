@@ -18,5 +18,6 @@ Data frame with mssp utilization metrics.
 Helper function to access utilization metrics
 }
 \examples{
-utilization_metrics(df, 2016)
+a <- load_enhanced_puf_file(2022)
+utilization_metrics(a, 2016)
 }
