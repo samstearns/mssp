@@ -1,3 +1,3 @@
 test_that("Trend utilization metrics works.", {
-  expect_no_error(trend_savings(a, "A1490"));
+  expect_no_error(trend_savings("A1490"));
 })
