@@ -154,7 +154,7 @@ trend_expenditures <- function(aco_id, df = NULL) {
 #' @param df Optional dataframe with MSSP data. If not supplied, uses mssp_all_years package in dataset
 #' @return Data frame with utilization metrics over time.
 #' @examples
-#' trend_savings("A1490")
+#' trend_utilization("A1490")
 #' @export
 trend_utilization <- function(aco_id, df = NULL) {
   vars <- c("performance_year", utilization_variables)
