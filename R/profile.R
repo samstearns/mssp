@@ -17,8 +17,9 @@ expenditures_variables <- tolower(c("ACO_ID", "ACO_Name", "CapAnn_INP_All", "Cap
                             "CapAnn_HSP", "CapAnn_SNF", "CapAnn_OPD", "CapAnn_PB", "CapAnn_AmbPay", "CapAnn_HHA", "CapAnn_DME"));
 
 
-# Note: ACO40 removed due to non-numeric scores
+# TODO: Confirm common variables
 quality_variables <- tolower(c("ACO_ID", "ACO_Name", "QualScore", "FinalShareRate"));
+# Note: ACO40 removed due to non-numeric scores
 #quality_variables <- c("QualScore", "QualPerfShare", "FinalShareRate", "ACO1", "ACO2", "ACO3", "ACO4", "ACO5", "ACO6", "ACO7",
 #                       "ACO8", "ACO9", "ACO10", "ACO11", "ACO13", "ACO14", "ACO15", "ACO16", "ACO17", "ACO18", "ACO19", "ACO20","ACO21", "ACO27", "ACO28", "ACO30",
 #                       "ACO31", "ACO33", "ACO34", "ACO35", "ACO36", "ACO37", "ACO38", "ACO39", "ACO41", "ACO42", "DM_Comp");
