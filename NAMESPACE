@@ -2,6 +2,7 @@
 
 export(cost_metrics)
 export(enhance_puf_file)
+export(get_cms_endpoints)
 export(load_enhanced_puf_file)
 export(load_multi_year_db)
 export(load_puf_file)
