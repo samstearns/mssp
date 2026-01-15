@@ -4,7 +4,7 @@
 #' get_cms_endpoints()
 #' @export
 get_cms_endpoints <- function() {
-  cms_endpoints <- data.frame(years=c(2013), urls=c("https://data.cms.gov/data-api/v1/dataset/bc90f498-76f4-4e75-8225-8aae30336059/data"));
+  cms_endpoints <- data.frame(year=c(2013), url=c("https://data.cms.gov/data-api/v1/dataset/bc90f498-76f4-4e75-8225-8aae30336059/data"));
   cms_endpoints <- rbind(cms_endpoints, list(2014, "https://data.cms.gov/data-api/v1/dataset/0ef9b1e2-e23b-4a01-921c-1ac7290c814b/data"));
   cms_endpoints <- rbind(cms_endpoints, list(2015, "https://data.cms.gov/data-api/v1/dataset/156c00e2-ab42-4923-b54f-09c031f5f28d/data"));
   cms_endpoints <- rbind(cms_endpoints, list(2016, "https://data.cms.gov/data-api/v1/dataset/a290fdd3-976a-4fc9-9139-a98193b3af82/data"));
