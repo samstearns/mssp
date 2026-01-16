@@ -89,34 +89,43 @@ load_puf_file <- function(year="1000") {
     stop("Package \"pkg\" needed for this function to work. Please install it.", call. = FALSE)
   }
 
-  if (year == 2013) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/bc90f498-76f4-4e75-8225-8aae30336059/data"
-  } else if (year == 2014) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/0ef9b1e2-e23b-4a01-921c-1ac7290c814b/data"
-  } else if (year == 2015) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/156c00e2-ab42-4923-b54f-09c031f5f28d/data"
-  } else if (year == 2016) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/a290fdd3-976a-4fc9-9139-a98193b3af82/data"
-  } else if (year == 2017) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/3b306450-1836-417b-b779-7d70fd2fc734/data"
-  } else if (year == 2018) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/80c86127-8839-4f35-b87b-aa37664afd19/data"
-  } else if (year == 2019) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/9c3a4c69-7d00-4307-9b6f-a080dc90417e/data"
-  } else if (year == 2020) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/8f073013-9db0-4b12-9a34-5802bdabbdfe/data"
-  } else if (year == 2021) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
-  } else if (year == 2022) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
-  } else if (year == 2023) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/7082a8f1-6d51-4723-853d-086bf254f5fb/data"
-  } else if (year == 2024) {
-    address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
-  } else {
+  endpoints <- get_cms_endpoints();
+
+  address <- endpoints[endpoints$year == year, 2]
+
+  if (address == "") {
     print("Invalid performance year. Please select a value between 2013 and 2024")
     return()
   }
+
+#  if (year == 2013) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/bc90f498-76f4-4e75-8225-8aae30336059/data"
+#  } else if (year == 2014) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/0ef9b1e2-e23b-4a01-921c-1ac7290c814b/data"
+#  } else if (year == 2015) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/156c00e2-ab42-4923-b54f-09c031f5f28d/data"
+#  } else if (year == 2016) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/a290fdd3-976a-4fc9-9139-a98193b3af82/data"
+#  } else if (year == 2017) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/3b306450-1836-417b-b779-7d70fd2fc734/data"
+#  } else if (year == 2018) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/80c86127-8839-4f35-b87b-aa37664afd19/data"
+#  } else if (year == 2019) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/9c3a4c69-7d00-4307-9b6f-a080dc90417e/data"
+#  } else if (year == 2020) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/8f073013-9db0-4b12-9a34-5802bdabbdfe/data"
+#  } else if (year == 2021) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
+#  } else if (year == 2022) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
+#  } else if (year == 2023) {
+#    address <- "https://data.cms.gov/data-api/v1/dataset/7082a8f1-6d51-4723-853d-086bf254f5fb/data"
+#  } else if (year == 2024) {
+ #   address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
+#  } else {
+#    print("Invalid performance year. Please select a value between 2013 and 2024")
+ #   return()
+#  }
 
   df <- jsonlite::fromJSON(address);
 
@@ -182,7 +191,7 @@ load_puf_file <- function(year="1000") {
   dfa[, "cms_hcc_riskscore_agdu_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_agdu_py"])
 
 
-    for (value in percentage_savings) {
+  for (value in percentage_savings) {
     if(value %in% colnames(dfa)) {
       dfa[, value] <- gsub("%", "", dfa[,value])
 
