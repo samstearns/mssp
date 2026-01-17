@@ -71,9 +71,6 @@ bmrk_values <- tolower(c("BnchmkMinExp", "GenSaveLoss", "DisAdj", "EarnSaveLoss"
 
 percentage_savings <- tolower(c("Sav_Rate", "MinSavPerc", "MaxShareRate", "FinalShareRate", "QualScore"));
 
-#  "ACO_Num", "ACO_NAME", "N_AB", "QualScore", "Per_Capita_Exp_TOTAL_PY", "HistBnchmk", "UpdatedBnchmk", "Performance_Year"))
-
-
 #' Downloads PUF files from CMS website
 #'
 #' @param year MSSP performance year.
@@ -98,35 +95,6 @@ load_puf_file <- function(year="1000") {
     return()
   }
 
-#  if (year == 2013) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/bc90f498-76f4-4e75-8225-8aae30336059/data"
-#  } else if (year == 2014) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/0ef9b1e2-e23b-4a01-921c-1ac7290c814b/data"
-#  } else if (year == 2015) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/156c00e2-ab42-4923-b54f-09c031f5f28d/data"
-#  } else if (year == 2016) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/a290fdd3-976a-4fc9-9139-a98193b3af82/data"
-#  } else if (year == 2017) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/3b306450-1836-417b-b779-7d70fd2fc734/data"
-#  } else if (year == 2018) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/80c86127-8839-4f35-b87b-aa37664afd19/data"
-#  } else if (year == 2019) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/9c3a4c69-7d00-4307-9b6f-a080dc90417e/data"
-#  } else if (year == 2020) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/8f073013-9db0-4b12-9a34-5802bdabbdfe/data"
-#  } else if (year == 2021) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
-#  } else if (year == 2022) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/a5d74ce2-ba38-47be-8523-146e4ad41832/data"
-#  } else if (year == 2023) {
-#    address <- "https://data.cms.gov/data-api/v1/dataset/7082a8f1-6d51-4723-853d-086bf254f5fb/data"
-#  } else if (year == 2024) {
- #   address <- "https://data.cms.gov/data-api/v1/dataset/73b2ce14-351d-40ac-90ba-ec9e1f5ba80c/data"
-#  } else {
-#    print("Invalid performance year. Please select a value between 2013 and 2024")
- #   return()
-#  }
-
   df <- jsonlite::fromJSON(address);
 
   # Convert the column types from chr by writing to a temporary CSV
@@ -134,11 +102,15 @@ load_puf_file <- function(year="1000") {
   write.csv(df, file = filename );
   dfa <- read.csv(filename)
 
+  # Remove the temporary CSV file
+  unlink(filename)
+
   # Standardize the column names to lower case. 2019 is all lower case, other years camel case
   names(dfa) <- tolower(names(dfa))
 
-  # Remove the temporary CSV file
-  unlink(filename)
+  # starting in 2022, risk scores scores includes label * for ACOS small sample size
+  # https://www.hhs.gov/guidance/document/cms-cell-suppression-policy
+  # Remove this with NAs to avoid warning NAs introduced by coercion
 
   for (value in per_capita_exps) {
     if(value %in% colnames(dfa)) {
@@ -169,20 +141,6 @@ load_puf_file <- function(year="1000") {
       dfa[, value] <- as.numeric(dfa[,value])
     }
   }
-
-  # starting in 2022, risk scores scores includes label * for ACOS small sample size
-  # https://www.hhs.gov/guidance/document/cms-cell-suppression-policy
-  # Remove this with NAs to avoid warning NAs introduced by coercion
-
-#  dfa[, "capann_inp_all"] <- gsub("*", "", dfa[,"capann_inp_all"])
-#  dfa[, "capann_inp_all"] <- as.numeric(dfa[,"capann_inp_all"])
-
- # dfa[, "capann_inp_s_trm"] <- gsub("*", "", dfa[,"capann_inp_s_trm"])
- # dfa[, "capann_inp_s_trm"] <- as.numeric(dfa[,"capann_inp_s_trm"])
-
-  #dfa[, "capann_inp_l_trm"] <- gsub("*", "", dfa[,"capann_inp_l_trm"])
-#  dfa[, "capann_inp_l_trm"] <- as.numeric(dfa[,"capann_inp_l_trm"])
-
 
   dfa[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_esrd_py"])
   dfa[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_esrd_py"])
