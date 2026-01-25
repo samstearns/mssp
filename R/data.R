@@ -286,19 +286,22 @@ enhance_puf_file <- function(df, year) {
 
   df$performance_year <- year
 
-  if (year < 2018) {
+  if (year < 2017) {
+    colnames(df)[163] <- "ACO_NUM"
+    # add a column for the ACO_ID
+    aic <- aco_id_crosswalk[c("ACO_NUM", "ACO_ID")]
+    df <- merge(df, aic, by="ACO_NUM", sort=FALSE)
+  }
+  else if (year < 2017) {
     colnames(df)[2] <- "ACO_NUM"
-    #df$aco_id <- df$aco_num
 
     # add a column for the ACO_ID
     aic <- aco_id_crosswalk[c("ACO_NUM", "ACO_ID")]
-
     df <- merge(df, aic, by="ACO_NUM", sort=FALSE)
   }
 
   # Ensure column names have consistent capitalization, due to 2018 being lowercase
   names(df) <- tolower(names(df))
-
 
   # Standardize column names
   if (year < 2015) {
