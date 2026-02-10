@@ -106,7 +106,7 @@ load_puf_file <- function(year="1000") {
   unlink(filename)
 
   # Standardize the column names to lower case. 2019 is all lower case, other years camel case
-  names(dfa) <- tolower(names(dfa))
+  colnames(dfa) <- tolower(colnames(dfa))
 
   # starting in 2022, risk scores scores includes label * for ACOS small sample size
   # https://www.hhs.gov/guidance/document/cms-cell-suppression-policy
@@ -141,13 +141,6 @@ load_puf_file <- function(year="1000") {
       dfa[, value] <- as.numeric(dfa[,value])
     }
   }
-
-  dfa[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_esrd_py"])
-  dfa[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_esrd_py"])
-
-  dfa[, "cms_hcc_riskscore_agdu_py"] <- gsub("*", "", dfa[,"cms_hcc_riskscore_agdu_py"])
-  dfa[, "cms_hcc_riskscore_agdu_py"] <- as.numeric(dfa[,"cms_hcc_riskscore_agdu_py"])
-
 
   for (value in percentage_savings) {
     if(value %in% colnames(dfa)) {
@@ -293,13 +286,12 @@ enhance_puf_file <- function(df, year) {
     aic <- aco_id_crosswalk[c("ACO_NUM", "ACO_ID")]
     df <- merge(df, aic, by="ACO_NUM", sort=FALSE)
   }
-  else if (year > 2017) {
     #colnames(df)[2] <- "ACO_NUM"
 
     # add a column for the ACO_ID
     #aic <- aco_id_crosswalk[c("ACO_NUM", "ACO_ID")]
     #df <- merge(df, aic, by="ACO_NUM", sort=FALSE)
-  }
+ # }
 
   # Ensure column names have consistent capitalization, due to 2018 being lowercase
   names(df) <- tolower(names(df))
@@ -311,6 +303,21 @@ enhance_puf_file <- function(df, year) {
     colnames(df)[colnames(df) == 'n_ab_year_aged_dual'] <- 'n_ab_year_aged_dual_py'
     colnames(df)[colnames(df) == 'n_ab_year_aged_nondual'] <- 'n_ab_year_aged_nondual_py'
   }
+
+  df[, "cms_hcc_riskscore_esrd_py"] <- gsub("*", "", df[,"cms_hcc_riskscore_esrd_py"])
+  df[, "cms_hcc_riskscore_esrd_py"] <- as.numeric(df[,"cms_hcc_riskscore_esrd_py"])
+
+  df[, "cms_hcc_riskscore_agdu_py"] <- gsub("*", "", df[,"cms_hcc_riskscore_agdu_py"])
+  df[, "cms_hcc_riskscore_agdu_py"] <- as.numeric(df[,"cms_hcc_riskscore_agdu_py"])
+
+  df[, "cms_hcc_riskscore_dis_py"] <- gsub("*", "", df[,"cms_hcc_riskscore_dis_py"])
+  df[, "cms_hcc_riskscore_dis_py"] <- as.numeric(df[,"cms_hcc_riskscore_dis_py"])
+
+  df[, "n_ab_year_aged_dual_py"] <- gsub("*", "", df[,"n_ab_year_aged_dual_py"])
+  df[, "n_ab_year_aged_dual_py"] <- as.numeric(df[,"n_ab_year_aged_dual_py"])
+
+  df[, "n_ab_year_dis_py"] <- gsub("*", "", df[,"n_ab_year_dis_py"])
+  df[, "n_ab_year_dis_py"] <- as.numeric(df[,"n_ab_year_dis_py"])
 
   # Create risk score
   df$cms_hcc_riskscore_py <- (df$cms_hcc_riskscore_dis_py * df$n_ab_year_dis_py +
